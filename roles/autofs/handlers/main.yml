@@ -1,0 +1,7 @@
+---
+# autofs handlers
+
+- name: restart "autofs"
+  service: >
+    name=autofs
+    state=restarted

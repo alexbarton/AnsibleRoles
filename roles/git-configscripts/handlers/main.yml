@@ -1,0 +1,20 @@
+---
+# git-configscripts handlers
+
+- name: install "ConfigScripts" for "root" and system
+  tags:
+    - git
+    - source
+  shell: make install
+  args:
+    chdir: /usr/local/src/ConfigScripts
+
+- name: install "ConfigScripts" for users
+  tags:
+    - git
+    - source
+  shell: su {{ item }} -c "make install"
+  args:
+    chdir: /usr/local/src/ConfigScripts
+  with_items: git_configscripts_users
+  when: item != ""

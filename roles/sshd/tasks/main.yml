@@ -1,0 +1,22 @@
+---
+# sshd tasks
+
+- name: install SSH packages
+  tags:
+    - packages
+    - sshd
+  apt: >
+    state=latest
+    name={{ item }}
+  with_items:
+    - openssh-blacklist-extra
+    - ssh
+
+- name: ensure service "ssh" is enabled and running
+  tags:
+    - services
+    - sshd
+  service: >
+    enabled=yes
+    name=ssh
+    state=running

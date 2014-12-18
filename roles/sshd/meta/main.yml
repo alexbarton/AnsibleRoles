@@ -1,0 +1,5 @@
+---
+# sshd meta
+
+dependencies:
+  - { role: debian-base }

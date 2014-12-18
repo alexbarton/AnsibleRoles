@@ -1,0 +1,13 @@
+---
+# lcmc-cluster-node tasks
+
+- name: install packages for cluster nodes
+  tags:
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - drbd8-utils
+    - pacemaker
+    - corosync

@@ -1,0 +1,79 @@
+---
+# debian-base tasks
+
+- name: 'apt(8): Disable "package diffs"'
+  tags:
+    - apt
+    - packages
+  lineinfile: >
+    create=yes
+    dest=/etc/apt/apt.conf
+    group=root
+    line='Acquire::PDiffs "false";'
+    mode=644
+    owner=root
+
+- name: "aptitude(8): Don't install recommended packages by default"
+  tags:
+    - apt
+    - packages
+  lineinfile: >
+    create=yes
+    dest=/root/.aptitude/config
+    group=root
+    line='Apt::Install-Recommends "false";'
+    owner=root
+
+- name: update APT repositories (when outdated)
+  tags:
+    - apt
+    - packages
+  apt: >
+    update_cache=yes
+    cache_valid_time=3600
+
+- name: configure debconf(1) frontend
+  tags:
+    - debconf
+    - packages
+  debconf: >
+    name=debconf
+    question=debconf/frontend
+    value=Dialog
+    vtype=select
+
+- name: configure debconf(1) priority
+  tags:
+    - debconf
+    - packages
+  debconf: >
+    name=debconf
+    question=debconf/priority
+    value=low
+    vtype=select
+
+- name: install common packages
+  tags:
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - bash-completion
+    - busybox-static
+    - ca-certificates
+    - curl
+    - debconf-utils
+    - etckeeper
+    - git
+    - htop
+    - less
+    - linux-image-amd64
+    - lsb-base
+    - lsb-release
+    - psmisc
+    - net-tools
+    - screen
+    - sudo
+    - telnet-ssl
+    - vim

@@ -1,0 +1,5 @@
+---
+# ntpd meta
+
+dependencies:
+  - { role: debian-base }

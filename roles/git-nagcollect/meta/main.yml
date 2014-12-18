@@ -1,0 +1,5 @@
+---
+# git-nagcollect meta
+
+dependencies:
+  - { role: debian-base }

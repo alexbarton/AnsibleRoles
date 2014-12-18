@@ -1,0 +1,34 @@
+---
+# ntpd tasks
+
+- name: /etc/ntp.conf file
+  tags:
+    - ntpd
+  template: >
+    dest=/etc/ntp.conf
+    group=root
+    mode=644
+    owner=root
+    src=ntp.conf
+  notify:
+    - restart "ntp"
+
+- name: install "ntpdate" and "ntp"
+  tags:
+    - ntpd
+    - packages
+  apt: >
+    name={{ item }}
+    state=installed
+  with_items:
+    - ntpdate
+    - ntp
+
+- name: ensure service "ntp" is enabled and running
+  tags:
+    - ntpd
+    - services
+  service: >
+    enabled=yes
+    name=ntp
+    state=running

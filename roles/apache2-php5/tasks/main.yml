@@ -1,0 +1,30 @@
+---
+# apache2-php5 tasks
+
+- name: install packages for Apache 2 with PHP 5
+  tags:
+    - apache
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - apache2-mpm-prefork
+    - apache2-utils
+    - apachetop
+    - libapache2-mod-php5
+    - php-apc
+    - php5
+    - php5-cli
+    - php5-mysql
+  notify:
+    - restart "apache2"
+
+- name: ensure service "apache2" is enabled and running
+  tags:
+    - apache
+    - services
+  service: >
+    enabled=yes
+    name=autofs
+    state=running

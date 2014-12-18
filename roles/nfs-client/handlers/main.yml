@@ -1,0 +1,7 @@
+---
+# nfs-client handlers
+
+- name: restart "nfs-common"
+  service: >
+    name=nfs-common
+    state=restarted

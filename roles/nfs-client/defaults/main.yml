@@ -1,0 +1,4 @@
+---
+# nfs-client defaults
+
+nfs_client_domain: "{{ ansible_domain }}"

@@ -1,0 +1,7 @@
+---
+# apache2-php5 handlers
+
+- name: restart "apache2"
+  service: >
+    name=apache2
+    state=restarted

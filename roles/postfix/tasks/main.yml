@@ -1,0 +1,84 @@
+---
+# postfix tasks
+
+- name: configure Postfix "mailname"
+  tags:
+    - mail
+    - packages
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/mailname
+    value="{{ inventory_hostname }}"
+    vtype=select
+
+- name: configure Postfix "destinations"
+  tags:
+    - mail
+    - packages
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/destinations
+    value="$myhostname, localhost.$mydomain, localhost"
+    vtype=select
+
+- name: install "postfix" package
+  tags:
+    - mail
+    - packages
+    - postfix
+  apt: >
+    state=installed
+    name=postfix
+
+- name: setup "/etc/mailname"
+  tags:
+    - mail
+    - postfix
+  template: >
+    dest=/etc/mailname
+    group=root
+    mode=644
+    owner=root
+    src=mailname.j2
+  notify:
+    - restart "postfix"
+
+- name: set Posfix "myorigin"
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    group=root
+    line="myorigin = /etc/mailname"
+    mode=644
+    owner=root
+    regexp="^myorigin"
+  notify:
+    - restart "postfix"
+
+- name: set Posfix "myhostname"
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    group=root
+    line="myhostname = {{ inventory_hostname }}"
+    mode=644
+    owner=root
+    regexp="^myhostname"
+  notify:
+    - restart "postfix"
+
+- name: ensure service "postfix" is enabled and running
+  tags:
+    - mail
+    - postfix
+    - services
+  service: >
+    enabled=yes
+    name=postfix
+    state=running

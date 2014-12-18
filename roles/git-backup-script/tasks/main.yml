@@ -1,0 +1,22 @@
+---
+# git-backup-script
+
+- name: install "rsync"
+  tags:
+    - packages
+  apt: >
+    state=installed
+    name=rsync
+
+- name: clone "backup-script" GIT repository
+  tags:
+    - git
+    - source
+    - backup
+  git: >
+    accept_hostkey=True
+    dest=/usr/local/src/backup-script
+    repo="git://arthur.barton.de/backup-script.git"
+    update=yes
+  notify:
+    - install "backup-script"

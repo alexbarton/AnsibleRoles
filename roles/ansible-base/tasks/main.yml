@@ -1,0 +1,39 @@
+---
+# ansible-base task
+
+- name: prepare logcheck directory structure
+  tags:
+    - logcheck
+  file: >
+    mode=755
+    path=/etc/logcheck/ignore.d.paranoid
+    state=directory
+
+# setup logcheck configuration. But note that package "logcheck" probably
+# isn't installed at all, so we can't use the "logcheck" group!
+
+- name: logcheck(8) configuration for Ansible tools
+  tags:
+    - ansible
+    - logcheck
+  lineinfile: >
+    create=yes
+    dest=/etc/logcheck/ignore.d.paranoid/local-ansible
+    group=root
+    line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ ansible-[[:alnum:]]+:'
+    mode=644
+    owner=root
+    state=present
+
+- name: logcheck(8) configuration for SFTP requests of Ansible
+  tags:
+    - ansible
+    - logcheck
+  lineinfile: >
+    create=yes
+    dest=/etc/logcheck/ignore.d.paranoid/local-ansible
+    group=root
+    line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ sshd\[[0-9]+\]: subsystem request for sftp by user root'
+    mode=644
+    owner=root
+    state=present

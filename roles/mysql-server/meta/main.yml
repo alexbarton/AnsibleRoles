@@ -1,0 +1,5 @@
+---
+# mysql-server meta
+
+dependencies:
+  - { role: debian-base }

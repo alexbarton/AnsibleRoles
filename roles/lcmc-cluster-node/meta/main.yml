@@ -1,0 +1,7 @@
+---
+# lcmc-cluster-node meta
+
+dependencies:
+  - { role: debian-base }
+  - { role: sshd }
+  - { role: ntpd }

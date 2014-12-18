@@ -1,0 +1,38 @@
+---
+# git-nagcollect tasks
+
+- name: setup "NagCollect" configuration
+  tags:
+    - monitoring
+  template: >
+    dest=/usr/local/etc/nagcollect.conf
+    group=root
+    mode=600
+    owner=root
+    src=nagcollect.conf.j2
+  when: nagcollect_server_url != "" and nagcollect_client_key != "" and nagcollect_client_id != ""
+
+- name: clone "NagCollect" GIT repository
+  tags:
+    - git
+    - source
+    - monitoring
+  git: >
+    accept_hostkey=True
+    dest=/usr/local/src/NagCollect
+    repo="git://arthur.barton.de/nagcollect.git"
+    update=yes
+  notify:
+    - install "NagCollect" client
+  when: nagcollect_server_url != "" and nagcollect_client_key != "" and nagcollect_client_id != ""
+
+- name: setup "NagCollect" to run periodically
+  tags:
+    - monitoring
+  template: >
+    dest=/etc/cron.d/nagcollect
+    group=root
+    mode=644
+    owner=root
+    src=nagcollect.cron.j2
+  when: nagcollect_server_url != "" and nagcollect_client_key != "" and nagcollect_client_id != ""

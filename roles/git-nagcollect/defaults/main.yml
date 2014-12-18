@@ -1,0 +1,11 @@
+---
+# git-nagcollect: defaults
+
+# Server URL
+nagcollect_server_url: ""
+
+# Client key ("password")
+nagcollect_client_key: ""
+
+# Client (host) identifier
+nagcollect_client_id: ""

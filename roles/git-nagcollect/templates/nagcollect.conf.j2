@@ -1,0 +1,17 @@
+# /usr/local/etc/nagcollect.conf
+# Configuration file read by NagCollect tools
+# ---
+#  {{ ansible_managed }}
+# ---
+
+# HTTP[s] URL of the NagCollect server, including the trailing '/':
+SERVER_URL="{{ nagcollect_server_url }}"
+
+# Client key as configured on the server
+CLIENT_KEY="{{ nagcollect_client_key }}"
+
+# Client ID to use in Nagios, must be unique!
+CLIENT_ID="{{ nagcollect_client_id }}"
+
+# Auto-update local test scripts? [1=yes]
+AUTOUPDATE=1

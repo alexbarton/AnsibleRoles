@@ -1,0 +1,31 @@
+---
+# nfs-client tasks
+
+- name: /etc/idmapd.conf file
+  tags:
+    - nfs
+  template: >
+    dest=/etc/idmapd.conf
+    group=root
+    mode=644
+    owner=root
+    src=idmapd.conf.j2
+  notify:
+    - restart "nfs-common"
+
+- name: install "nfs-common"
+  tags:
+    - nfs
+    - packages
+  apt: >
+    name=nfs-common
+    state=installed
+
+- name: ensure service "nfs-common" is enabled and running
+  tags:
+    - nfs
+    - services
+  service: >
+    enabled=yes
+    name=nfs-common
+    state=running

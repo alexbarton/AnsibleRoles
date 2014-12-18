@@ -1,0 +1,15 @@
+---
+# git-configscripts
+
+- name: clone "ConfigScripts" GIT repository
+  tags:
+    - git
+    - source
+  git: >
+    accept_hostkey=True
+    dest=/usr/local/src/ConfigScripts
+    repo="git://arthur.barton.de/ConfigScripts.git"
+    update=yes
+  notify:
+    - install "ConfigScripts" for "root" and system
+    - install "ConfigScripts" for users

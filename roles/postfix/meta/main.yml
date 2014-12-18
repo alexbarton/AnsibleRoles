@@ -1,0 +1,5 @@
+---
+# postfix meta
+
+dependencies:
+  - { role: debian-base }

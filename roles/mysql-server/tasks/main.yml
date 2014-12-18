@@ -1,0 +1,121 @@
+---
+# mysql-server tasks
+
+- name: check if MySQL data already exists
+  tags:
+    - mysql
+    - fs
+  shell: test -d /var/lib/mysql/mysql
+  ignore_errors: yes
+  register: mysql_server_installed
+  changed_when: false
+
+- name: setup LVM volume "mysql" for MySQL
+  tags:
+    - mysql
+    - partition
+    - lvm
+    - fs
+  lvol: >
+    lv=mysql
+    size=10g
+    vg={{ mysql_server_vg }}
+  when: mysql_server_vg != "" and mysql_server_installed.rc != 0
+
+- name: create ext4 filesystem on MySQL partition "mysql"
+  tags:
+    - mysql
+    - fs
+  filesystem: >
+    dev=/dev/{{ mysql_server_vg }}/mysql
+    fstype=ext4
+    opts="-L mysql"
+  when: mysql_server_vg != "" and mysql_server_installed.rc != 0
+
+- name: create mount point "/var/lib/mysql"
+  tags:
+    - mysql
+    - fs
+  file: >
+    path=/var/lib/mysql
+    state=directory
+  when: mysql_server_vg != "" and mysql_server_installed.rc != 0
+
+- name: configure and mount MySQL partition "mysql"
+  tags:
+    - mysql
+    - fs
+    - mount
+  mount: >
+    fstype=ext4
+    name=/var/lib/mysql
+    src=/dev/{{ mysql_server_vg }}/mysql
+    state=mounted
+    opts=rw,errors=remount-ro,noatime
+    passno=2
+  when: mysql_server_vg != "" and mysql_server_installed.rc != 0
+
+- name: install MySQL packages for client and server
+  tags:
+    - mysql
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - mysql-client
+    - mysql-server
+    - mysqltuner
+    - python-mysqldb
+
+- name: ensure service "mysql" is enabled and running
+  tags:
+    - services
+    - mysql
+  service: >
+    enabled=yes
+    name=mysql
+    state=running
+
+- name: setup MySQL "ansible" account
+  tags:
+    - mysql
+    - mysql-users
+  mysql_user: >
+    login_user={{ mysql_server_ansible_user }}
+    login_password={{ mysql_server_ansible_password }}
+    check_implicit_admin=yes
+    host="localhost"
+    name=ansible
+    password={{ mysql_server_ansible_password }}
+    priv="*.*:ALL,GRANT"
+    state=present
+
+- name: setup MySQL "root" account
+  tags:
+    - mysql
+    - mysql-users
+  mysql_user: >
+    login_user={{ mysql_server_ansible_user }}
+    login_password={{ mysql_server_ansible_password }}
+    host="{{ mysql_server_root_host }}"
+    name=root
+    password={{ mysql_server_root_password }}
+    priv="*.*:ALL,GRANT"
+    state=present
+
+- name: Remove unwanted MySQL "root" accounts
+  tags:
+    - mysql
+    - mysql-users
+  mysql_user: >
+    login_user={{ mysql_server_ansible_user }}
+    login_password={{ mysql_server_ansible_password }}
+    host={{ item }}
+    name=root
+    state=absent
+  with_items:
+    - "{{ ansible_hostname }}"
+    - "localhost"
+    - "127.0.0.1"
+    - "::1"

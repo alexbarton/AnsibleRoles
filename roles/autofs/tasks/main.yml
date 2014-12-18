@@ -1,0 +1,39 @@
+---
+# autofs tasks
+
+- name: prepare autofs(8) directory structure
+  tags:
+    - autofs
+  file: >
+    mode=755
+    path=/etc/auto.master.d/
+    state=directory
+
+- name: /etc/auto.master.d/net.autofs file
+  tags:
+    - autofs
+  template: >
+    dest=/etc/auto.master.d/net.autofs
+    group=root
+    mode=644
+    owner=root
+    src=net.autofs.j2
+  notify:
+    - restart "autofs"
+
+- name: install "autofs"
+  tags:
+    - autofs
+    - packages
+  apt: >
+    name=autofs
+    state=installed
+
+- name: ensure service "autofs" is enabled and running
+  tags:
+    - autofs
+    - services
+  service: >
+    enabled=yes
+    name=autofs
+    state=running

@@ -1,0 +1,5 @@
+---
+# git-configscripts meta
+
+dependencies:
+  - { role: debian-base }

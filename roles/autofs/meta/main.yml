@@ -1,0 +1,5 @@
+---
+# autofs meta
+
+dependencies:
+  - { role: debian-base }

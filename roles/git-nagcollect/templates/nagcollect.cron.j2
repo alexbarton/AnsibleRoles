@@ -1,0 +1,6 @@
+# /etc/cron.d/nagcollect
+# ---
+#  {{ ansible_managed }}
+# ---
+
+*/15 * * * *	root	/usr/local/sbin/nagcollect >/dev/null
