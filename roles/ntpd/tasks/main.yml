@@ -9,7 +9,7 @@
     group=root
     mode=644
     owner=root
-    src=ntp.conf
+    src=ntp.conf.j2
   notify:
     - restart "ntp"
 
