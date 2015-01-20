@@ -12,7 +12,7 @@
 # setup logcheck configuration. But note that package "logcheck" probably
 # isn't installed at all, so we can't use the "logcheck" group!
 
-- name: logcheck(8) configuration for Ansible tools
+- name: logcheck(8) rules for Ansible tools
   tags:
     - ansible
     - logcheck
@@ -25,7 +25,7 @@
     owner=root
     state=present
 
-- name: logcheck(8) configuration for SFTP requests of Ansible
+- name: logcheck(8) rules for SFTP requests of Ansible
   tags:
     - ansible
     - logcheck
