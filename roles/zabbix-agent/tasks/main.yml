@@ -1,0 +1,51 @@
+---
+# zabbix-agent tasks
+
+- name: check if Zabbix agent is installed
+  tags:
+    - monitoring
+    - zabbix
+  shell: test -x /usr/sbin/zabbix_agentd
+  ignore_errors: yes
+  register: zabbix_agent_installed
+  changed_when: false
+  when: (zabbix_agent_server != "" or zabbix_agent_server_active != "")
+
+- name: download Zabbix agent package
+  tags:
+    - monitoring
+    - zabbix
+  get_url: url={{ zabbix_agent_pkg_url }} dest=/tmp/{{ zabbix_agent_pkg_file }} sha256sum={{ zabbix_agent_pkg_sha }}
+  when: (zabbix_agent_server != "" or zabbix_agent_server_active != "") and zabbix_agent_installed.rc != 0
+
+- name: install Zabbix agent package
+  tags:
+    - monitoring
+    - zabbix
+  shell: DEBIAN_FRONTEND=noninteractive dpkg -i /tmp/{{ zabbix_agent_pkg_file }}
+  when: (zabbix_agent_server != "" or zabbix_agent_server_active != "") and zabbix_agent_installed.rc != 0
+
+- name: setup "/etc/zabbix/zabbix_agentd.d/agent.conf"
+  tags:
+    - monitoring
+    - zabbix
+  template: >
+    dest=/etc/zabbix/zabbix_agentd.d/agent.conf
+    group=root
+    mode=644
+    owner=root
+    src=agent.conf.j2
+  notify:
+    - restart "zabbix-agent"
+  when: (zabbix_agent_server != "" or zabbix_agent_server_active != "")
+
+- name: ensure service "zabbix-agent" is enabled and running
+  tags:
+    - monitoring
+    - services
+    - zabbix
+  service: >
+    enabled=yes
+    name=zabbix-agent
+    state=running
+  when: (zabbix_agent_server != "" or zabbix_agent_server_active != "")

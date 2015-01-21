@@ -1,0 +1,5 @@
+---
+# zabbix-agent meta
+
+dependencies:
+  - { role: debian-base }

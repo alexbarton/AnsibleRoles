@@ -1,0 +1,14 @@
+# /etc/zabbix/zabbix_agentd.d/agent.conf
+# ---
+#  {{ ansible_managed }}
+# ---
+
+Hostname={{ inventory_hostname }}
+
+# Passive checks
+Server={{ zabbix_agent_server }}
+StartAgents={{ zabbix_agent_prefork }}
+
+# Active checks
+ServerActive={{ zabbix_agent_server_active }}
+HostMetadata={{ zabbix_agent_metadata }}

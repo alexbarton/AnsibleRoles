@@ -1,0 +1,19 @@
+---
+# zabbix-agent defaults
+
+# Zabbix agent package for Debian
+zabbix_agent_pkg_file: "zabbix-agent_2.4.3-1+wheezy_amd64.deb"
+zabbix_agent_pkg_url: "http://repo.zabbix.com/zabbix/2.4/debian/pool/main/z/zabbix/{{ zabbix_agent_pkg_file }}"
+zabbix_agent_pkg_sha: "f9a0908a378c2262e07917ba4071ffbe44b632cba71938a47fab255f7a7f410d"
+
+# Zabbix server host (for "passive" agent checks, empty to disable)
+zabbix_agent_server: ""
+
+# Number of agent processes for "passive" checks (0 to disable)
+zabbix_agent_prefork: 0
+
+# Zabbix server host (for "active" agent checks, empty to disable)
+zabbix_agent_server_active: ""
+
+# Zabbix agent "HostMetadata" (for auto-registration)
+zabbix_agent_metadata: ""
