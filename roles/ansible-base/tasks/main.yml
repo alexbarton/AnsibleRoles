@@ -20,7 +20,7 @@
     create=yes
     dest=/etc/logcheck/ignore.d.paranoid/local-ansible
     group=root
-    line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ ansible-[[:alnum:]]+:'
+    line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ ansible-[[:alnum:]_]+:'
     mode=644
     owner=root
     state=present
