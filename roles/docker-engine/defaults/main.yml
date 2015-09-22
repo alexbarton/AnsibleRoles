@@ -1,0 +1,4 @@
+---
+# defaults file for docker-engine
+
+docker_apt_repository: "https://apt.dockerproject.org/repo"

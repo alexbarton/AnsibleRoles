@@ -1,0 +1,53 @@
+---
+# tasks file for docker-engine
+
+- name: install "apt-transport-https" and "ca-certificates"
+  tags:
+    - docker
+    - packages
+  apt: >
+    name={{ item }}
+    state=installed
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+  when: docker_apt_repository.startswith("https://")
+
+- name: install docker.io repository GnuPG key
+  tags:
+    - docker
+    - packages
+  copy: >
+    dest=/etc/apt/trusted.gpg.d/
+    group=root
+    mode=644
+    owner=root
+    src=docker.gpg
+  notify:
+    - update APT repositories
+
+- name: install docker.io repository configuration
+  tags:
+    - docker
+    - packages
+  template: >
+    dest=/etc/apt/sources.list.d/docker.list
+    group=root
+    mode=644
+    owner=root
+    src=docker.list.j2
+  notify:
+    - update APT repositories
+
+- meta: flush_handlers
+  tags:
+    - docker
+    - packages
+
+- name: install "docker-engine"
+  tags:
+    - docker
+    - packages
+  apt: >
+    name=docker-engine
+    state=installed
