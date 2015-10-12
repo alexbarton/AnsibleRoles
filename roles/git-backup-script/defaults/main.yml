@@ -1,0 +1,4 @@
+---
+# defaults file for git-backup-script
+
+git_backup_script_repository: "git://arthur.barton.de/backup-script.git"

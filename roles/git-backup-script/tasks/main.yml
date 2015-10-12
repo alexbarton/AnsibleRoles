@@ -16,7 +16,7 @@
   git: >
     accept_hostkey=True
     dest=/usr/local/src/backup-script
-    repo="git://arthur.barton.de/backup-script.git"
+    repo={{ git_backup_script_repository }}
     update=yes
   notify:
     - install "backup-script"
