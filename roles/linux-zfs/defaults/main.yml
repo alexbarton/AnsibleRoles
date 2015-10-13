@@ -1,0 +1,5 @@
+---
+# defaults file for linux-zfs
+
+admin_email: "root"
+zfsonlinux_apt_repository: "[arch=amd64] http://archive.zfsonlinux.org/debian"

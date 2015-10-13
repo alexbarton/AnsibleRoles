@@ -1,0 +1,62 @@
+---
+# tasks file for linux-zfs
+
+- name: install "ZFS on Linux" repository GnuPG key
+  tags:
+    - zfs
+    - packages
+  copy: >
+    dest=/etc/apt/trusted.gpg.d/
+    group=root
+    mode=644
+    owner=root
+    src=zfsonlinux.gpg
+  notify:
+    - update APT repositories
+
+- name: install "ZFS on Linux" repository configuration
+  tags:
+    - zfs
+    - packages
+  template: >
+    dest=/etc/apt/sources.list.d/zfsonlinux.list
+    group=root
+    mode=644
+    owner=root
+    src=zfsonlinux.list.j2
+  notify:
+    - update APT repositories
+
+- meta: flush_handlers
+  tags:
+    - zfs
+    - packages
+
+- name: install "ZFS on Linux" packages
+  tags:
+    - packages
+    - zfs
+  apt: >
+    state=installed
+    name=debian-zfs
+
+- name: setup /usr/local/sbin/zpool-scrub.sh file
+  tags:
+    - zfs
+  template: >
+    dest=/usr/local/sbin/zpool-scrub.sh
+    group=root
+    mode=644
+    owner=root
+    src=zpool-scrub.sh.j2
+
+- name: setup /etc/cton.d/zpool-scrub file
+  tags:
+    - cron
+    - zfs
+  template: >
+    dest=/etc/cron.d/zpool-scrub
+    group=root
+    mode=644
+    owner=root
+    src=cron.d_zpool-scrub.j2

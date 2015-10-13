@@ -1,0 +1,6 @@
+# /etc/apt/sources.list.d/zfsonlinux.list -- "ZFS on Linux" repository config
+# ---
+#  {{ ansible_managed }}
+# ---
+
+deb {{zfsonlinux_apt_repository}} {{ansible_distribution_release}} main

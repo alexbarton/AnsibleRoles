@@ -1,0 +1,43 @@
+#!/bin/bash
+# /usr/local/sbin/backup-script-wrapper
+# ---
+#  {{ ansible_managed }}
+# ---
+
+NAME=$(basename "$0")
+
+pools=$(zpool list -H | cut -f1)
+if [ $? -ne 0 ]; then
+	echo "$NAME: Failed to list ZFS pools, aborting!"
+	exit 1
+fi
+if [ -z "$pools" ]; then
+	# No pools found, nothing to do, ok.
+	exit 0
+fi
+
+wait_for_scrub_done() {
+	while true; do
+		zpool status "$1" 2>/dev/null | fgrep 'scrub in progress' >/dev/null
+		[ $? -eq 0 ] || return 0
+		sleep 60
+	done
+}
+
+for pool in $pools; do
+	echo "Scrubbing ZFS storage pool \"$pool\" ..."
+	echo -n "Started: "; date
+	zpool scrub "$pool"
+	if [ $? -eq 0 ]; then
+		wait_for_scrub_done "$pool"
+		echo -n "Done: "; date
+	else
+		echo "Failed to start scrubbing!?"
+		zpool scrub -s "$pool" >/dev/null 2>&1
+		sleep 5
+	fi
+	echo
+done
+
+# Show status of ZFS storage pools
+zpool status

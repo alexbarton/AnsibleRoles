@@ -1,0 +1,11 @@
+# /etc/cron.d/zpool-scrub
+# ---
+#  {{ ansible_managed }}
+# ---
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin/:/bin
+MAILTO={{ admin_email }}
+
+# m h  dom mon dow  user  command
+
+42 12  * * 2  root  /usr/local/sbin/zpool-scrub.sh
