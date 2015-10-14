@@ -46,7 +46,7 @@
   template: >
     dest=/usr/local/sbin/zpool-scrub.sh
     group=root
-    mode=644
+    mode=755
     owner=root
     src=zpool-scrub.sh.j2
 
