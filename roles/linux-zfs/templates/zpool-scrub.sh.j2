@@ -24,6 +24,9 @@ wait_for_scrub_done() {
 	done
 }
 
+echo "Scrubbing ZFS storage pools on $(hostname -f):"
+echo
+
 for pool in $pools; do
 	echo "Scrubbing ZFS storage pool \"$pool\" ..."
 	echo -n "Started: "; date
