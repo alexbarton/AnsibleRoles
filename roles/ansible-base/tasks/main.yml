@@ -19,7 +19,7 @@
   lineinfile: >
     create=yes
     dest=/etc/logcheck/ignore.d.paranoid/local-ansible
-    group=root
+    group=0
     line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ ansible-[[:alnum:]_]+:'
     mode=644
     owner=root
@@ -32,7 +32,7 @@
   lineinfile: >
     create=yes
     dest=/etc/logcheck/ignore.d.paranoid/local-ansible
-    group=root
+    group=0
     line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ sshd\[[0-9]+\]: subsystem request for sftp by user root'
     mode=644
     owner=root
