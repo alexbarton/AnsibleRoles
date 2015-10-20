@@ -11,6 +11,7 @@
   with_items:
     - openssh-blacklist-extra
     - ssh
+  when: "ansible_distribution == 'Debian'"
 
 - name: ensure service "ssh" is enabled and running
   tags:
@@ -20,3 +21,14 @@
     enabled=yes
     name=ssh
     state=running
+  when: "ansible_distribution == 'Debian'"
+
+- name: ensure service "sshd" is enabled and running
+  tags:
+    - services
+    - sshd
+  service: >
+    enabled=yes
+    name=sshd
+    state=running
+  when: "ansible_distribution != 'Debian'"
