@@ -1,0 +1,5 @@
+---
+# meta file for os-base
+
+dependencies:
+  - { role: debian-base, when: "ansible_distribution == 'Debian'" }

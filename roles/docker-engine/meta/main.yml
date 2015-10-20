@@ -2,4 +2,4 @@
 # meta file for docker-engine
 
 dependencies:
-  - { role: debian-base }
+  - { role: os-base }

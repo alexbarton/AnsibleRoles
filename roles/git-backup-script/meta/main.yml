@@ -2,4 +2,4 @@
 # git-backup-scripts meta
 
 dependencies:
-  - { role: debian-base }
+  - { role: os-base }

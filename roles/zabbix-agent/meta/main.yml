@@ -2,4 +2,4 @@
 # zabbix-agent meta
 
 dependencies:
-  - { role: debian-base }
+  - { role: os-base }

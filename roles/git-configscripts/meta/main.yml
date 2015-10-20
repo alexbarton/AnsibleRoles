@@ -2,4 +2,4 @@
 # git-configscripts meta
 
 dependencies:
-  - { role: debian-base }
+  - { role: os-base }
