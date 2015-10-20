@@ -9,7 +9,7 @@
   debconf: >
     name=postfix
     question=postfix/mailname
-    value="{{ inventory_hostname }}"
+    value="{{ postfix_mailname }}"
     vtype=select
 
 - name: configure Postfix "destinations"
@@ -20,7 +20,7 @@
   debconf: >
     name=postfix
     question=postfix/destinations
-    value="$myhostname, localhost.$mydomain, localhost"
+    value="{{ postfix_mailname }}, $myhostname, localhost.$mydomain, localhost"
     vtype=select
 
 - name: install "postfix" package

@@ -1,0 +1,4 @@
+---
+# defaults file for postfix
+
+postfix_mailname: "{{ inventory_hostname }}"
