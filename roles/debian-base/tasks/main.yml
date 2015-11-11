@@ -17,7 +17,6 @@
     - git
     - htop
     - less
-    - linux-image-amd64
     - lsb-base
     - lsb-release
     - psmisc
@@ -26,3 +25,19 @@
     - sudo
     - telnet-ssl
     - vim
+
+- name: install Linux kernel packages (amd64)
+  tags:
+    - packages
+  apt: >
+    state=installed
+    name=linux-image-amd64
+  when: "ansible_architecture == 'x86_64'"
+
+- name: install Linux kernel packages (i386)
+  tags:
+    - packages
+  apt: >
+    state=installed
+    name=linux-image-686-pae
+  when: "ansible_architecture == 'i386'"
