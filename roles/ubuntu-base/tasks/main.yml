@@ -1,5 +1,5 @@
 ---
-# tasks file for debian-base
+# tasks file for ubuntu-base
 
 - name: install common packages
   tags:
@@ -17,7 +17,7 @@
     - git
     - htop
     - less
-    - linux-image-amd64
+    - linux-image-generic
     - lsb-base
     - lsb-release
     - psmisc

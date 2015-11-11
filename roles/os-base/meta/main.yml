@@ -2,4 +2,6 @@
 # meta file for os-base
 
 dependencies:
+  - { role: apt-base, when: "ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'"}
   - { role: debian-base, when: "ansible_distribution == 'Debian'" }
+  - { role: ubuntu-base, when: "ansible_distribution == 'Ubuntu'" }
