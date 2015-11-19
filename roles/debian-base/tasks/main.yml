@@ -26,18 +26,18 @@
     - telnet-ssl
     - vim
 
-- name: install Linux kernel packages (amd64)
+- name: install Linux kernel packages (amd64; non Proxmox-VE hosts)
   tags:
     - packages
   apt: >
     state=installed
     name=linux-image-amd64
-  when: "ansible_architecture == 'x86_64'"
+  when: "ansible_architecture == 'x86_64' and ansible_kernel.find('pve') < 1"
 
-- name: install Linux kernel packages (i386)
+- name: install Linux kernel packages (i386; non Proxmox-VE hosts)
   tags:
     - packages
   apt: >
     state=installed
     name=linux-image-686-pae
-  when: "ansible_architecture == 'i386'"
+  when: "ansible_architecture == 'i386' and ansible_kernel.find('pve') < 1"
