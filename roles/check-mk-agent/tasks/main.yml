@@ -12,7 +12,7 @@
   with_items:
     - check-mk-agent
     - check-mk-agent-logwatch
-    - monitoring-plugins-basic
+    - nagios-plugins-basic
 
 - name: test for systemd unit files
   tags:
