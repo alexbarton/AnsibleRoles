@@ -1,0 +1,69 @@
+---
+# tasks file for check-mk-agent
+
+- name: install Debian packages for CheckMk agent
+  tags:
+    - check_mk
+    - monitoring
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - check-mk-agent
+    - check-mk-agent-logwatch
+    - monitoring-plugins-basic
+
+- name: test for systemd unit files
+  tags:
+    - check_mk
+    - monitoring
+    - packages
+  stat: path=/etc/systemd/system/check_mk.socket
+  when: "ansible_distribution_major_version >= '8'"
+  register: check_mk_socket_unit
+
+- name: install systemd socket unit files
+  tags:
+    - packages
+    - systemd
+  template: >
+    dest=/etc/systemd/system/check_mk.socket
+    group=root
+    mode=644
+    owner=root
+    src=check_mk.socket.j2
+  when: "check_mk_socket_unit.stat.exists == False and ansible_distribution_major_version >= '8'"
+  notify:
+    - reload systemd daemon
+
+- name: install systemd service unit files
+  tags:
+    - packages
+    - systemd
+  template: >
+    dest=/etc/systemd/system/check_mk@.service
+    group=root
+    mode=644
+    owner=root
+    src=check_mk@.service.j2
+  when: "check_mk_socket_unit.stat.exists == False and ansible_distribution_major_version >= '8'"
+  notify:
+    - "reload systemd daemon"
+
+- meta: flush_handlers
+  tags:
+    - check_mk
+    - monitoring
+    - packages
+    - systemd
+
+- name: ensure "check_mk.socket" is enabled and running
+  tags:
+    - check_mk
+    - monitoring
+  service: >
+    enabled=yes
+    name=check_mk.socket
+    state=running
+  when: "ansible_distribution_major_version >= '8'"

@@ -1,0 +1,14 @@
+# /etc/systemd/system/check_mk.socket
+# ---
+#  {{ ansible_managed }}
+# ---
+
+[Unit]
+Description=Check_MK Agent Socket
+
+[Socket]
+ListenStream=6556
+Accept=true
+
+[Install]
+WantedBy=sockets.target
