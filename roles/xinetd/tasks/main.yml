@@ -1,0 +1,11 @@
+---
+# tasks file for xinetd
+
+- name: install xinetd(8)
+  tags:
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - xinetd
