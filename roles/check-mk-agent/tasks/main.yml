@@ -1,7 +1,7 @@
 ---
 # tasks file for check-mk-agent
 
-- name: install Debian packages for CheckMk agent
+- name: install Debian packages for Check_MK agent
   tags:
     - check_mk
     - monitoring
