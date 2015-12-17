@@ -3,3 +3,4 @@
 
 dependencies:
   - { role: os-base }
+  - { role: xinetd, when: "ansible_distribution_major_version < '8'" }
