@@ -104,7 +104,7 @@
     priv="*.*:ALL,GRANT"
     state=present
 
-- name: Remove unwanted MySQL "root" accounts
+- name: Remove unwanted MySQL "root" accounts (1/2)
   tags:
     - mysql
     - mysql-users
@@ -116,6 +116,19 @@
     state=absent
   with_items:
     - "{{ ansible_hostname }}"
-    - "localhost"
     - "127.0.0.1"
     - "::1"
+
+- name: Remove unwanted MySQL "root" accounts (2/2)
+  tags:
+    - mysql
+    - mysql-users
+  mysql_user: >
+    login_user={{ mysql_server_ansible_user }}
+    login_password={{ mysql_server_ansible_password }}
+    host={{ item }}
+    name=root
+    state=absent
+  with_items:
+    - "localhost"
+  when: mysql_server_root_host != "localhost"
