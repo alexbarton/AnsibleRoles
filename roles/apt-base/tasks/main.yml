@@ -13,6 +13,17 @@
     mode=644
     owner=root
 
+- name: "apt(8): Don't install recommended packages by default"
+  tags:
+    - apt
+    - packages
+  lineinfile: >
+    create=yes
+    dest=/etc/apt/apt.conf
+    group=root
+    line='Apt::Install-Recommends "false";'
+    owner=root
+
 - name: "aptitude(8): Don't install recommended packages by default"
   tags:
     - apt
