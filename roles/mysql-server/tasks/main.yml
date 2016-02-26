@@ -58,6 +58,7 @@
 - name: install MySQL packages for client and server
   tags:
     - mysql
+    - mysqld
     - packages
   apt: >
     state=installed
@@ -72,6 +73,7 @@
   tags:
     - services
     - mysql
+    - mysqld
   service: >
     enabled=yes
     name=mysql
@@ -80,6 +82,7 @@
 - name: setup MySQL "ansible" account
   tags:
     - mysql
+    - mysqld
     - mysql-users
   mysql_user: >
     login_user={{ mysql_server_ansible_user }}
@@ -94,6 +97,7 @@
 - name: setup MySQL "root" account
   tags:
     - mysql
+    - mysqld
     - mysql-users
   mysql_user: >
     login_user={{ mysql_server_ansible_user }}
@@ -107,6 +111,7 @@
 - name: Remove unwanted MySQL "root" accounts (1/2)
   tags:
     - mysql
+    - mysqld
     - mysql-users
   mysql_user: >
     login_user={{ mysql_server_ansible_user }}
@@ -122,6 +127,7 @@
 - name: Remove unwanted MySQL "root" accounts (2/2)
   tags:
     - mysql
+    - mysqld
     - mysql-users
   mysql_user: >
     login_user={{ mysql_server_ansible_user }}
