@@ -1,12 +1,15 @@
 ---
 # git-backup-script
 
-- name: install "rsync"
+- name: install "rsync" and "make"
   tags:
     - packages
   apt: >
     state=installed
-    name=rsync
+    name={{ item }}
+  with_items:
+    - rsync
+    - make
 
 - name: clone "backup-script" GIT repository
   tags:
