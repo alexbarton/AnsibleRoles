@@ -32,6 +32,14 @@
     - zfs
     - packages
 
+- name: install "build-essential" package
+  tags:
+    - packages
+    - zfs
+  apt: >
+    state=installed
+    name=build-essential
+
 - name: install "ZFS on Linux" packages
   tags:
     - packages
