@@ -1,0 +1,4 @@
+---
+# ntpd defaults
+
+ntp_servers: "ntp1.cust.hosteurope.de ntp2.cust.hosteurope.de"

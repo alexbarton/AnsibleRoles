@@ -12,8 +12,9 @@ filegen peerstats  file peerstats  type day enable
 filegen clockstats file clockstats type day enable
 
 # NTP servers and time sources:
-server ntp1.cust.hosteurope.de
-server ntp2.cust.hosteurope.de
+{% for server in ntp_servers.split() %}
+server {{ server }}
+{% endfor %}
 server 127.127.1.0
 fudge  127.127.1.0 stratum 13
 
