@@ -26,5 +26,5 @@
     - services
   service: >
     enabled=yes
-    name=autofs
+    name=apache2
     state=running
