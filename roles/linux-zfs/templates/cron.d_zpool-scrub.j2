@@ -8,4 +8,4 @@ MAILTO={{ admin_email }}
 
 # m h  dom mon dow  user  command
 
-42 12  * * 2  root  /usr/local/sbin/zpool-scrub.sh
+{{ zfs_scrub_minute }} {{ zfs_scrub_hour }}  * * {{ zfs_scrub_dayofweek }}  root  /usr/local/sbin/zpool-scrub.sh

@@ -3,3 +3,8 @@
 
 admin_email: "root"
 zfsonlinux_apt_repository: "[arch=amd64] http://archive.zfsonlinux.org/debian"
+
+# Start time for ZFS "scrub" job (CRON)
+zfs_scrub_dayofweek: 2
+zfs_scrub_hour: 12
+zfs_scrub_minute: 42
