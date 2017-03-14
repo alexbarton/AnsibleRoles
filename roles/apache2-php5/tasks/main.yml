@@ -1,6 +1,15 @@
 ---
 # apache2-php5 tasks
 
+- name: check if "php5-apcu" package exists
+  tags:
+    - apache
+    - packages
+  command: dpkg --print-avail php5-apcu
+  register: php5_apcu_is_available
+  failed_when: php5_apcu_is_available.rc > 1
+  changed_when: no
+
 - name: install packages for Apache 2 with PHP 5
   tags:
     - apache
@@ -10,12 +19,34 @@
     name={{ item }}
   with_items:
     - libapache2-mod-php5
-    - php-apc
+    - php5-apcu
     - php5
     - php5-cli
     - php5-mysql
   notify:
     - restart "apache2"
+
+- name: install "php5-apcu" cache
+  tags:
+    - apache
+    - packages
+  apt: >
+    state=installed
+    name=php5-apcu
+  notify:
+    - restart "apache2"
+  when: php5_apcu_is_available is defined and php5_apcu_is_available.rc == 0
+
+- name: install "php-apc" cache
+  tags:
+    - apache
+    - packages
+  apt: >
+    state=installed
+    name=apc-php
+  notify:
+    - restart "apache2"
+  when: php5_apcu_is_available is defined and php5_apcu_is_available.rc != 0
 
 - name: ensure service "apache2" is enabled and running
   tags:
