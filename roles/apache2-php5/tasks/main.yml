@@ -44,7 +44,7 @@
     - packages
   apt: >
     state=installed
-    name=apc-php
+    name=php-apc
   notify:
     - restart "apache2"
   when: php5_apcu_is_available.rc != 0
