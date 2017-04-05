@@ -6,6 +6,7 @@
     - apache
     - packages
   command: dpkg --print-avail php5-apcu
+  check_mode: no
   register: php5_apcu_is_available
   failed_when: php5_apcu_is_available.rc > 1
   changed_when: no
@@ -35,7 +36,7 @@
     name=php5-apcu
   notify:
     - restart "apache2"
-  when: php5_apcu_is_available is defined and php5_apcu_is_available.rc == 0
+  when: php5_apcu_is_available.rc == 0
 
 - name: install "php-apc" cache
   tags:
@@ -46,7 +47,7 @@
     name=apc-php
   notify:
     - restart "apache2"
-  when: php5_apcu_is_available is defined and php5_apcu_is_available.rc != 0
+  when: php5_apcu_is_available.rc != 0
 
 - name: ensure service "apache2" is enabled and running
   tags:

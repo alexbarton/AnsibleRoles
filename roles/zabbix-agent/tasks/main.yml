@@ -7,6 +7,7 @@
     - zabbix
   shell: test -x /usr/sbin/zabbix_agentd
   ignore_errors: yes
+  check_mode: no
   register: zabbix_agent_installed
   changed_when: false
   when: (zabbix_agent_server != "" or zabbix_agent_server_active != "")
