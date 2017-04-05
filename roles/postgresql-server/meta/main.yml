@@ -1,0 +1,5 @@
+---
+# postgresql-server meta
+
+dependencies:
+  - { role: os-base }

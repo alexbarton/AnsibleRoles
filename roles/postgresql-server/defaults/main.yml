@@ -1,0 +1,4 @@
+---
+# defaults file for postgresql-server
+
+postgresql_major: 9.4

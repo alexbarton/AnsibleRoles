@@ -1,0 +1,12 @@
+---
+# tasks file for postgresql-server
+
+- name: install PostgreSQL {{ postgresql_major }} packages for client and server
+  tags:
+    - packages
+    - postgresql
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - postgresql-{{ postgresql_major }}
