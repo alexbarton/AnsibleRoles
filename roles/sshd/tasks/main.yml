@@ -13,22 +13,22 @@
     - ssh
   when: "ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'"
 
-- name: ensure service "ssh" is enabled and running
+- name: ensure service "ssh" is enabled and started
   tags:
     - services
     - sshd
   service: >
     enabled=yes
     name=ssh
-    state=running
+    state=started
   when: "ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'"
 
-- name: ensure service "sshd" is enabled and running
+- name: ensure service "sshd" is enabled and started
   tags:
     - services
     - sshd
   service: >
     enabled=yes
     name=sshd
-    state=running
+    state=started
   when: "ansible_distribution != 'Debian' and ansible_distribution != 'Ubuntu'"

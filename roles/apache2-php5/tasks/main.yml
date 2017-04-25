@@ -48,11 +48,11 @@
     - restart "apache2"
   when: php5_apcu_is_available.rc != 0
 
-- name: ensure service "apache2" is enabled and running
+- name: ensure service "apache2" is enabled and started
   tags:
     - apache
     - services
   service: >
     enabled=yes
     name=apache2
-    state=running
+    state=started

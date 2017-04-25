@@ -29,11 +29,11 @@
     name=autofs
     state=installed
 
-- name: ensure service "autofs" is enabled and running
+- name: ensure service "autofs" is enabled and started
   tags:
     - autofs
     - services
   service: >
     enabled=yes
     name=autofs
-    state=running
+    state=started

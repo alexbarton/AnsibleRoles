@@ -21,11 +21,11 @@
     name=nfs-common
     state=installed
 
-- name: ensure service "nfs-common" is enabled and running
+- name: ensure service "nfs-common" is enabled and started
   tags:
     - nfs
     - services
   service: >
     enabled=yes
     name=nfs-common
-    state=running
+    state=started

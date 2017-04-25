@@ -73,7 +73,7 @@
   notify:
     - restart "postfix"
 
-- name: ensure service "postfix" is enabled and running
+- name: ensure service "postfix" is enabled and started
   tags:
     - mail
     - postfix
@@ -81,4 +81,4 @@
   service: >
     enabled=yes
     name=postfix
-    state=running
+    state=started

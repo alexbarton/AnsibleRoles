@@ -40,7 +40,7 @@
     - restart "zabbix-agent"
   when: (zabbix_agent_server != "" or zabbix_agent_server_active != "")
 
-- name: ensure service "zabbix-agent" is enabled and running
+- name: ensure service "zabbix-agent" is enabled and started
   tags:
     - monitoring
     - services
@@ -48,5 +48,5 @@
   service: >
     enabled=yes
     name=zabbix-agent
-    state=running
+    state=started
   when: (zabbix_agent_server != "" or zabbix_agent_server_active != "")

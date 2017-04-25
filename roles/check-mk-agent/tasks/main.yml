@@ -75,12 +75,12 @@
     - packages
     - systemd
 
-- name: ensure "check_mk.socket" is enabled and running
+- name: ensure "check_mk.socket" is enabled and started
   tags:
     - check_mk
     - monitoring
   service: >
     enabled=yes
     name=check_mk.socket
-    state=running
+    state=started
   when: "ansible_distribution_major_version >= '8'"

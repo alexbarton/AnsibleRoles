@@ -24,11 +24,11 @@
     - ntpdate
     - ntp
 
-- name: ensure service "ntp" is enabled and running
+- name: ensure service "ntp" is enabled and started
   tags:
     - ntpd
     - services
   service: >
     enabled=yes
     name=ntp
-    state=running
+    state=started

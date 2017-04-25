@@ -70,7 +70,7 @@
     - mysqltuner
     - python-mysqldb
 
-- name: ensure service "mysql" is enabled and running
+- name: ensure service "mysql" is enabled and started
   tags:
     - services
     - mysql
@@ -78,7 +78,7 @@
   service: >
     enabled=yes
     name=mysql
-    state=running
+    state=started
 
 - name: setup MySQL "ansible" account
   tags:
