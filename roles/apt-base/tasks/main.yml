@@ -10,7 +10,7 @@
     dest=/etc/apt/apt.conf
     group=root
     line='Acquire::PDiffs "false";'
-    mode=644
+    mode=0644
     owner=root
 
 - name: "apt(8): Don't install recommended packages by default"

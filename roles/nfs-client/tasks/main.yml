@@ -7,7 +7,7 @@
   template: >
     dest=/etc/idmapd.conf
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=idmapd.conf.j2
   notify:

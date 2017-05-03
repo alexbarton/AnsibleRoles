@@ -33,7 +33,7 @@
   template: >
     dest=/etc/zabbix/zabbix_agentd.d/agent.conf
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=agent.conf.j2
   notify:

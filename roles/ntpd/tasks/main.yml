@@ -7,7 +7,7 @@
   template: >
     dest=/etc/ntp.conf
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=ntp.conf.j2
   notify:

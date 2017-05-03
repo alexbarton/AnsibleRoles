@@ -5,7 +5,7 @@
   tags:
     - autofs
   file: >
-    mode=755
+    mode=0755
     path=/etc/auto.master.d/
     state=directory
 
@@ -15,7 +15,7 @@
   template: >
     dest=/etc/auto.master.d/net.autofs
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=net.autofs.j2
   notify:

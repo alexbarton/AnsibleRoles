@@ -33,7 +33,7 @@
   template: >
     dest=/usr/local/sbin/zpool-scrub.sh
     group=root
-    mode=755
+    mode=0755
     owner=root
     src=zpool-scrub.sh.j2
 
@@ -44,6 +44,6 @@
   template: >
     dest=/etc/cron.d/zpool-scrub
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=cron.d_zpool-scrub.j2

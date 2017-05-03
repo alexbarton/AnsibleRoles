@@ -5,7 +5,7 @@
   tags:
     - logcheck
   file: >
-    mode=755
+    mode=0755
     path=/etc/logcheck/ignore.d.paranoid
     state=directory
 
@@ -21,7 +21,7 @@
     dest=/etc/logcheck/ignore.d.paranoid/local-ansible
     group=0
     line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ ansible-[[:alnum:]_]+:'
-    mode=644
+    mode=0644
     owner=root
     state=present
 
@@ -34,6 +34,6 @@
     dest=/etc/logcheck/ignore.d.paranoid/local-ansible
     group=0
     line='^\w{3} [ :0-9]{11} [._[:alnum:]-]+ sshd\[[0-9]+\]: subsystem request for sftp by user root'
-    mode=644
+    mode=0644
     owner=root
     state=present

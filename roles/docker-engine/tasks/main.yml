@@ -20,7 +20,7 @@
   copy: >
     dest=/etc/apt/trusted.gpg.d/
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=docker.gpg
   notify:
@@ -33,7 +33,7 @@
   template: >
     dest=/etc/apt/sources.list.d/docker.list
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=docker.list.j2
   notify:

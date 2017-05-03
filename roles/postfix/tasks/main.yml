@@ -39,7 +39,7 @@
   template: >
     dest=/etc/mailname
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=mailname.j2
   notify:
@@ -53,7 +53,7 @@
     dest=/etc/postfix/main.cf
     group=root
     line="myorigin = /etc/mailname"
-    mode=644
+    mode=0644
     owner=root
     regexp="^myorigin"
   notify:
@@ -67,7 +67,7 @@
     dest=/etc/postfix/main.cf
     group=root
     line="myhostname = {{ inventory_hostname }}"
-    mode=644
+    mode=0644
     owner=root
     regexp="^myhostname"
   notify:

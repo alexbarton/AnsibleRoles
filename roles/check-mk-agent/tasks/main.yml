@@ -32,7 +32,7 @@
   template: >
     dest=/etc/systemd/system/check_mk.socket
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=check_mk.socket.j2
   when: ansible_distribution_major_version >= '8' and check_mk_socket_unit.stat.exists == False
@@ -47,7 +47,7 @@
   template: >
     dest=/etc/systemd/system/check_mk@.service
     group=root
-    mode=644
+    mode=0644
     owner=root
     src=check_mk@.service.j2
   when: ansible_distribution_major_version >= '8' and check_mk_socket_unit.stat.exists == False
@@ -60,7 +60,7 @@
   lineinfile: >
     dest=/etc/xinetd.d/check_mk
     group=root
-    mode=644
+    mode=0644
     owner=root
     regexp="^[\s]*disable[\s]*="
     state=absent
