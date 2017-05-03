@@ -6,7 +6,7 @@
     - packages
     - sshd
   apt: >
-    state=latest
+    state=present
     name={{ item }}
   with_items:
     - openssh-blacklist-extra
