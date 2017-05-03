@@ -5,7 +5,7 @@
   tags:
     - mysql
     - fs
-  shell: test -d /var/lib/mysql/mysql
+  command: test -d /var/lib/mysql/mysql
   ignore_errors: yes
   check_mode: no
   register: mysql_server_installed

@@ -4,7 +4,7 @@
 - name: restart "sshd"
   tags:
     - ssh
-  shell: echo "SSH service should be restarted ..."
+  command: echo "SSH service should be restarted ..."
   changed_when: True
   notify:
     - restart SSH daemon (service "ssh")

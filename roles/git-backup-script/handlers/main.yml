@@ -6,6 +6,6 @@
     - git
     - source
     - backup
-  shell: make install
+  command: make install
   args:
     chdir: /usr/local/src/backup-script
