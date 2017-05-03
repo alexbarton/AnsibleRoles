@@ -21,5 +21,6 @@
     dest=/usr/local/src/backup-script
     repo={{ git_backup_script_repository }}
     update=yes
+    version=master
   notify:
     - install "backup-script"
