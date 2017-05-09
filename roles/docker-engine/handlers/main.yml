@@ -5,3 +5,8 @@
   service: >
     name=docker
     state=restarted
+
+- name: reload Docker
+  service: >
+    name=docker
+    state=reloaded
