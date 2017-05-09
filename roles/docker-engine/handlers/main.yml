@@ -1,0 +1,7 @@
+---
+# handlers file for docker-engine
+
+- name: restart Docker
+  service: >
+    name=docker
+    state=restarted
