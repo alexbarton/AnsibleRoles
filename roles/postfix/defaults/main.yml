@@ -1,4 +1,6 @@
 ---
 # defaults file for postfix
 
+postfix_interfaces: "all"
 postfix_mailname: "{{ inventory_hostname }}"
+smtp_relay_host: ""

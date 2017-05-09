@@ -1,26 +1,16 @@
 ---
 # postfix tasks
 
-- name: configure Postfix "mailname"
+# Set Debconf to not configure Postfix at all:
+- name: configure debconf(1) to not configure Postfix
   tags:
+    - debconf
     - mail
-    - packages
     - postfix
   debconf: >
     name=postfix
-    question=postfix/mailname
-    value="{{ postfix_mailname }}"
-    vtype=select
-
-- name: configure Postfix "destinations"
-  tags:
-    - mail
-    - packages
-    - postfix
-  debconf: >
-    name=postfix
-    question=postfix/destinations
-    value="{{ postfix_mailname }}, $myhostname, localhost.$mydomain, localhost"
+    question=postfix/main_mailer_type
+    value="No configuration"
     vtype=select
 
 - name: install "postfix" package
@@ -66,10 +56,43 @@
   lineinfile: >
     dest=/etc/postfix/main.cf
     group=root
-    line="myhostname = {{ inventory_hostname }}"
+    line="myhostname = {{ postfix_mailname }}"
     mode=0644
     owner=root
     regexp="^myhostname"
+  notify:
+    - restart "postfix"
+
+- name: set Posfix "mydestination"
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    line="mydestination = {{ postfix_mailname }}, localhost"
+    regexp="^mydestination"
+  notify:
+    - restart "postfix"
+
+- name: set Posfix "inet_interfaces"
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    line="inet_interfaces = {{ postfix_interfaces }}"
+    regexp="^inet_interfaces"
+  notify:
+    - restart "postfix"
+
+- name: set Posfix "relayhost"
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    line="relayhost = {{ smtp_relay_host }}"
+    regexp="^relayhost"
   notify:
     - restart "postfix"
 
