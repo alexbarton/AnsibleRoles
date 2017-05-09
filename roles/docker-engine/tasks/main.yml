@@ -51,3 +51,15 @@
   apt: >
     name=docker-engine
     state=installed
+
+- name: setup "/etc/docker/daemon.json" file
+  tags:
+    - docker
+  template: >
+    dest=/etc/docker/daemon.json
+    group=root
+    mode=0600
+    owner=root
+    src=daemon.json.j2
+  notify:
+    - reload Docker
