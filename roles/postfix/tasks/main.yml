@@ -1,8 +1,7 @@
 ---
 # postfix tasks
 
-# Set Debconf to not configure Postfix at all:
-- name: configure debconf(1) to not configure Postfix
+- name: 'debconf(1): configure Postfix as "Satellite system"'
   tags:
     - debconf
     - mail
@@ -10,8 +9,107 @@
   debconf: >
     name=postfix
     question=postfix/main_mailer_type
-    value="No configuration"
+    value="Satellite system"
     vtype=select
+
+- name: 'debconf(1): set system mail name'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/mailname
+    value="{{ postfix_mailname }}"
+    vtype=string
+
+- name: 'debconf(1): set SMTP relay host'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/relayhost
+    value="{{ smtp_relay_host }}"
+    vtype=string
+
+- name: 'debconf(1): set root and postmaster recipient'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/root_address
+    value="{{ postfix_root_address }}"
+    vtype=string
+
+- name: 'debconf(1): set other destinations to accept mail for'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/destinations
+    value="{{ postfix_destinations }}"
+    vtype=string
+
+- name: 'debconf(1): set local networks'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/mynetworks
+    value="{{ postfix_local_networks }}"
+    vtype=string
+
+- name: 'debconf(1): set mailbox size limit'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/mailbox_limit
+    value="{{ postfix_mailbox_limit }}"
+    vtype=string
+
+- name: 'debconf(1): set local address extension character'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/recipient_delim
+    value="{{ postfix_recipient_delim }}"
+    vtype=string
+
+- name: 'debconf(1): set internet protocols to use'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/protocols
+    value="{{ postfix_protocols }}"
+    vtype=string
+
+- name: 'debconf(1): configure synchronous updates on mail queue'
+  tags:
+    - debconf
+    - mail
+    - postfix
+  debconf: >
+    name=postfix
+    question=postfix/chattr
+    value="{{ postfix_sync_updates }}"
+    vtype=boolean
 
 - name: install "postfix" package
   tags:
@@ -49,31 +147,6 @@
   notify:
     - restart "postfix"
 
-- name: set Posfix "myhostname"
-  tags:
-    - mail
-    - postfix
-  lineinfile: >
-    dest=/etc/postfix/main.cf
-    group=root
-    line="myhostname = {{ postfix_mailname }}"
-    mode=0644
-    owner=root
-    regexp="^myhostname"
-  notify:
-    - restart "postfix"
-
-- name: set Posfix "mydestination"
-  tags:
-    - mail
-    - postfix
-  lineinfile: >
-    dest=/etc/postfix/main.cf
-    line="mydestination = {{ postfix_mailname }}, localhost"
-    regexp="^mydestination"
-  notify:
-    - restart "postfix"
-
 - name: set Posfix "inet_interfaces"
   tags:
     - mail
@@ -82,17 +155,6 @@
     dest=/etc/postfix/main.cf
     line="inet_interfaces = {{ postfix_interfaces }}"
     regexp="^inet_interfaces"
-  notify:
-    - restart "postfix"
-
-- name: set Posfix "relayhost"
-  tags:
-    - mail
-    - postfix
-  lineinfile: >
-    dest=/etc/postfix/main.cf
-    line="relayhost = {{ smtp_relay_host }}"
-    regexp="^relayhost"
   notify:
     - restart "postfix"
 

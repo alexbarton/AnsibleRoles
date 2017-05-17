@@ -1,6 +1,13 @@
 ---
 # defaults file for postfix
 
+postfix_destinations: "{{ inventory_hostname}}, localhost"
 postfix_interfaces: "all"
+postfix_local_networks: "127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128"
+postfix_mailbox_limit: "0"
 postfix_mailname: "{{ inventory_hostname }}"
+postfix_protocols: "all"
+postfix_recipient_delim: "+"
+postfix_root_address: ""
+postfix_sync_updates: "false"
 smtp_relay_host: ""
