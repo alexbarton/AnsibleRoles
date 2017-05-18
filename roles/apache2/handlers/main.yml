@@ -2,6 +2,8 @@
 # apache2 handlers
 
 - name: restart "apache2"
+  tags:
+    - apache
   service: >
     name=apache2
     state=restarted
