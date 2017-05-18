@@ -13,24 +13,41 @@ Configure the target system to be managed by Ansible, update *logcheck(8)*
 configuration, for example.
 
 
-### apache2-php5
+### apache2
 
-Default Apache 2.x setup with PHP 5.x.
+Default Apache 2.x setup.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Installed Packages
 
  - apache2-mpm-prefork
  - apache2-utils
  - apachetop
+
+
+### apache2-php5
+
+Default Apache 2.x setup with PHP 5.x.
+
+#### Depends on / Pulls in
+
+ - apache2
+
+#### Installed Packages
+
  - libapache2-mod-php5
- - php-apc
  - php5
+ - php5-apcu | php-apc
  - php5-cli
  - php5-mysql
+
+
+### apt-base
+
+Generic configuration for APT-based Linux systems.
 
 
 ### autofs
@@ -40,11 +57,25 @@ directory hierarchy.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
+ - xinetd
 
 #### Installed Packages
 
  - autofs
+
+
+### check-mk-agent
+
+#### Depends on / Pulls in
+
+ - os-base
+
+#### Installed Packages
+
+ - check-mk-agent
+ - check-mk-agent-logwatch
+ - nagios-plugins-basic
 
 
 ### debian-base
@@ -55,7 +86,6 @@ set of standard packages.
 #### Installed Packages
 
  - bash-completion
- - busybox-static
  - ca-certificates
  - curl
  - debconf-utils
@@ -63,7 +93,6 @@ set of standard packages.
  - git
  - htop
  - less
- - linux-image-amd64
  - lsb-base
  - lsb-release
  - psmisc
@@ -74,6 +103,23 @@ set of standard packages.
  - vim
 
 
+### docker-engine
+
+#### Depends on / Pulls in
+
+ - os-base
+
+#### Installed Packages
+
+ - apt-transport-https
+ - ca-certificates
+ - docker-engine
+
+#### Variables
+
+ - `docker_apt_repository`
+
+
 ### git-backup-script
 
 Local "BackupScript" installation from the GIT repository of Alex
@@ -81,7 +127,7 @@ Local "BackupScript" installation from the GIT repository of Alex
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Installed Packages
 
@@ -95,7 +141,7 @@ Local "ConfigScripts" installation from the GIT repository of Alex
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Variables
 
@@ -109,7 +155,7 @@ Local "NagCollect" client installation from the GIT repository of Alex
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Variables
 
@@ -125,7 +171,7 @@ Setup for Linux clusters running DRBD, Pacemaker, and Corosync using the
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
  - sshd
  - ntpd
 
@@ -136,13 +182,24 @@ Setup for Linux clusters running DRBD, Pacemaker, and Corosync using the
  - corosync
 
 
+### linux-zfs
+
+#### Depends on / Pulls in
+
+ - os-base
+
+#### Installed Packages
+
+ - zfsutils
+
+
 ### mysql-server
 
 MySQL Server setup, including a separate LVM data partition, if desired.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Variables
 
@@ -172,7 +229,7 @@ NFS client setup.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Variables
 
@@ -189,12 +246,18 @@ Local *ntpd(8)* setup.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Installed Packages
 
  - ntpdate
  - ntp
+
+
+### os-base
+
+Generic "base role" for the operating system, pulls in the actual OS and
+distribution specific role (e. g. "debian-base").
 
 
 ### postfix
@@ -203,11 +266,26 @@ Postfix SMTP server setup.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Installed Packages
 
  - postfix
+
+
+### postgresql-server
+
+#### Depends on / Pulls in
+
+ - os-base
+
+#### Installed Packages
+
+ - postgresql-$postgresql_major
+
+#### Variables
+
+ - `postgresql_major`
 
 
 ### sshd
@@ -220,9 +298,77 @@ other roles in this repository.
 
 #### Depends on / Pulls in
 
- - debian-base
+ - os-base
 
 #### Installed Packages
 
  - openssh-blacklist-extra
  - ssh
+
+
+### systemd
+
+Base role for systemd-based systems.
+
+
+### ubuntu-base
+
+Basic Ubuntu setup, including APT and Debconf configuration as well as a
+set of standard packages.
+
+#### Installed Packages
+
+ - bash-completion
+ - busybox-static
+ - ca-certificates
+ - curl
+ - debconf-utils
+ - etckeeper
+ - git
+ - htop
+ - less
+ - linux-image-generic
+ - lsb-base
+ - lsb-release
+ - psmisc
+ - net-tools
+ - screen
+ - sudo
+ - telnet-ssl
+ - vim
+
+
+### xinetd
+
+#### Depends on / Pulls in
+
+ - os-base
+
+#### Installed Packages
+
+ - xinetd
+
+
+### zabbix-agent
+
+#### Depends on / Pulls in
+
+ - os-base
+
+#### Installed Packages
+
+ - zabbix-agent
+
+#### Variables
+
+ - `zabbix_agent_pkg_file`
+ - `zabbix_agent_pkg_url`
+ - `zabbix_agent_pkg_sha`
+ - `zabbix_agent_server`:
+   Zabbix server host for "passive" agent checks, empty to disable.
+ - `zabbix_agent_prefork`:
+   Number of agent processes for "passive" checks (0 to disable).
+ - `zabbix_agent_server_active`:
+   Zabbix server host (for "active" agent checks, empty to disable).
+ - `zabbix_agent_metadata`:
+   Zabbix agent "HostMetadata" (for auto-registration).
