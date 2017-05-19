@@ -260,6 +260,31 @@ Generic "base role" for the operating system, pulls in the actual OS and
 distribution specific role (e. g. "debian-base").
 
 
+### piwik
+
+#### Depends on / Pulls in
+
+ - os-base
+ - apache2-php5
+
+#### Installed Packages
+
+ - piwik
+
+#### Variables
+
+ - `piwik_apt_repository`
+ - `piwik_vhost_ipa`
+ - `piwik_vhost_port`
+ - `piwik_vhost_fqdn`
+ - `piwik_admin_email`
+ - `piwik_db_host`: Initial database host.
+ - `piwik_db_user`: Initial database user.
+ - `piwik_db_password`: Initial database password.
+ - `piwik_db_name`: Initial database name.
+ - `piwik_trusted_hosts`: Initial list of trusted hosts.
+
+
 ### postfix
 
 Postfix SMTP server setup.

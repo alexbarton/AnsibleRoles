@@ -1,0 +1,6 @@
+---
+# meta file for piwik
+
+dependencies:
+  - { role: os-base }
+  - { role: apache2-php5 }

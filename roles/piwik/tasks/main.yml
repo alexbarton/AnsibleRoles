@@ -1,0 +1,123 @@
+---
+# tasks file for piwik
+
+- name: install "apt-transport-https" and "ca-certificates"
+  tags:
+    - docker
+    - packages
+  apt: >
+    name={{ item }}
+    state=installed
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+  when: piwik_apt_repository.startswith("https://")
+
+- name: install Piwik repository GnuPG key
+  tags:
+    - piwik
+    - packages
+  copy: >
+    dest=/etc/apt/trusted.gpg.d/
+    group=root
+    mode=0644
+    owner=root
+    src=piwik.gpg
+  notify:
+    - update APT repositories
+
+- name: install Piwik repository configuration
+  tags:
+    - piwik
+    - packages
+  template: >
+    dest=/etc/apt/sources.list.d/piwik.list
+    group=root
+    mode=0644
+    owner=root
+    src=piwik.list.j2
+  notify:
+    - update APT repositories
+
+- meta: flush_handlers
+  tags:
+    - piwik
+    - packages
+
+- name: install "piwik"
+  tags:
+    - piwik
+    - packages
+  apt: >
+    name=piwik
+    state=installed
+
+- name: install Piwik configuration
+  tags:
+    - piwik
+  template: >
+    dest=/etc/piwik/config.ini.php
+    force=no
+    group=www-data
+    mode=0664
+    owner=root
+    src=config.ini.php.j2
+
+- name: install Piwik "htaccess" configuration
+  tags:
+    - piwik
+  copy: >
+    dest=/etc/piwik/.htaccess
+    force=no
+    group=www-data
+    mode=0664
+    owner=root
+    src=htaccess
+
+- name: make JavaScript tracker writable
+  tags:
+    - piwik
+  file: >
+    group=www-data
+    mode=0664
+    owner=root
+    path=/usr/share/piwik/piwik.js
+
+- name: install Apache VHost configuration for Piwik
+  tags:
+    - piwik
+    - apache
+  template: >
+    dest=/etc/apache2/sites-available/piwik.conf
+    group=root
+    mode=0644
+    owner=root
+    src=apache2_piwik_vhost.conf.j2
+  notify:
+    - restart "apache2"
+
+- name: enable Apache VHost configuration for Piwik
+  tags:
+    - piwik
+    - apache
+  file: >
+    dest=/etc/apache2/sites-enabled/piwik.conf
+    group=root
+    owner=root
+    src=/etc/apache2/sites-available/piwik.conf
+    state=link
+  notify:
+    - restart "apache2"
+
+- name: install Piwik PHP configuration
+  tags:
+    - php
+    - piwik
+  template: >
+    dest=/etc/php5/apache2/conf.d/99-piwik.ini
+    group=root
+    mode=0644
+    owner=root
+    src=php_piwik.ini.j2
+  notify:
+    - restart "apache2"

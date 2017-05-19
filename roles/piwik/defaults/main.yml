@@ -1,0 +1,18 @@
+---
+# defaults file for piwik
+
+piwik_apt_repository: "http://debian.piwik.org/"
+
+piwik_vhost_ipa: "*"
+piwik_vhost_port: 80
+piwik_vhost_fqdn: "{{ inventory_hostname }}"
+
+piwik_admin_email: "root@{{ inventory_hostname }}"
+
+piwik_db_host: "localhost"
+piwik_db_user: "piwik"
+piwik_db_password: "piwik"
+piwik_db_name: "piwik"
+
+piwik_trusted_hosts:
+  - "{{ piwik_vhost_fqdn }}"

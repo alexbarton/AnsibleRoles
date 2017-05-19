@@ -1,0 +1,18 @@
+; <?php exit; ?> DO NOT REMOVE THIS LINE
+; /etc/piwik/config.ini.php
+; ---
+; Ansible template configuration file, will be overwritten by Piwik later on,
+; which is okay :-)
+; ---
+
+[database]
+host = "{{ piwik_db_host }}"
+username = "{{ piwik_db_user }}"
+password = "{{ piwik_db_password }}"
+dbname = "{{ piwik_db_name }}"
+
+[General]
+proxy_client_headers[] = "HTTP_X_FORWARDED_FOR"
+proxy_host_headers[] = "HTTP_X_FORWARDED_HOST"
+{% for host in piwik_trusted_hosts %}trusted_hosts[] = "{{ host }}"
+{% endfor %}

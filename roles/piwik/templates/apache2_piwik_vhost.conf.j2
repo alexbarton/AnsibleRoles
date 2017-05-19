@@ -1,0 +1,17 @@
+# /etc/apache2/sites-available/piwik.conf
+# ---
+#  {{ ansible_managed }}
+# ---
+
+<VirtualHost {{piwik_vhost_ipa}}:{{piwik_vhost_port}}>
+	ServerAdmin {{piwik_admin_email}}
+	ServerName {{piwik_vhost_fqdn}}
+
+	DocumentRoot /usr/share/piwik
+
+	Include /etc/piwik/apache.conf
+
+	CustomLog /var/log/apache2/piwik_access.log combined
+	ErrorLog /var/log/apache2/piwik_error.log
+	LogLevel warn
+</VirtualHost>
