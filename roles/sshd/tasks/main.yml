@@ -7,10 +7,7 @@
     - sshd
   apt: >
     state=present
-    name={{ item }}
-  with_items:
-    - openssh-blacklist-extra
-    - ssh
+    name=ssh
   when: "ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'"
 
 - name: ensure service "ssh" is enabled and started
