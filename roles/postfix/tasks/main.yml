@@ -11,6 +11,8 @@
     question=postfix/main_mailer_type
     value="Satellite system"
     vtype=select
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set system mail name'
   tags:
@@ -22,6 +24,8 @@
     question=postfix/mailname
     value="{{ postfix_mailname }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set SMTP relay host'
   tags:
@@ -33,6 +37,8 @@
     question=postfix/relayhost
     value="{{ smtp_relay_host }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set root and postmaster recipient'
   tags:
@@ -44,6 +50,8 @@
     question=postfix/root_address
     value="{{ postfix_root_address }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set other destinations to accept mail for'
   tags:
@@ -55,6 +63,8 @@
     question=postfix/destinations
     value="{{ postfix_destinations }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set local networks'
   tags:
@@ -66,6 +76,8 @@
     question=postfix/mynetworks
     value="{{ postfix_local_networks }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set mailbox size limit'
   tags:
@@ -77,6 +89,8 @@
     question=postfix/mailbox_limit
     value="{{ postfix_mailbox_limit }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set local address extension character'
   tags:
@@ -88,6 +102,8 @@
     question=postfix/recipient_delim
     value="{{ postfix_recipient_delim }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): set internet protocols to use'
   tags:
@@ -99,6 +115,8 @@
     question=postfix/protocols
     value="{{ postfix_protocols }}"
     vtype=string
+  notify:
+    - update "postfix" configuration
 
 - name: 'debconf(1): configure synchronous updates on mail queue'
   tags:
@@ -110,6 +128,8 @@
     question=postfix/chattr
     value="{{ postfix_sync_updates }}"
     vtype=boolean
+  notify:
+    - update "postfix" configuration
 
 - name: install "postfix" package
   tags:

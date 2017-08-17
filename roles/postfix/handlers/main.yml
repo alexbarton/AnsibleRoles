@@ -1,6 +1,11 @@
 ---
 # postfix handlers
 
+- name: update "postfix" configuration
+  command: dpkg-reconfigure -fnoninteractive postfix
+  notify:
+    - restart "postfix"
+
 - name: restart "postfix"
   service: >
     name=postfix
