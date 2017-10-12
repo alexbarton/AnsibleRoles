@@ -29,3 +29,4 @@
     enabled=yes
     name=nfs-common
     state=started
+  when: "ansible_distribution_major_version < '8'"
