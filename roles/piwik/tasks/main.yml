@@ -94,7 +94,7 @@
     owner=root
     src=apache2_piwik_vhost.conf.j2
   notify:
-    - restart "apache2"
+    - reload "apache2" (graceful)
 
 - name: enable Apache VHost configuration for Piwik
   tags:
@@ -107,7 +107,7 @@
     src=/etc/apache2/sites-available/piwik.conf
     state=link
   notify:
-    - restart "apache2"
+    - reload "apache2" (graceful)
 
 - name: install Piwik PHP configuration
   tags:

@@ -7,3 +7,15 @@
   service: >
     name=apache2
     state=restarted
+
+- name: reload "apache2"
+  tags:
+    - apache
+  service: >
+    name=apache2
+    state=reloaded
+
+- name: reload "apache2" (graceful)
+  tags:
+    - apache
+  command: apache2ctl graceful
