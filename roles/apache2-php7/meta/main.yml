@@ -1,0 +1,5 @@
+---
+# apache2-php7 meta
+
+dependencies:
+  - { role: apache2 }

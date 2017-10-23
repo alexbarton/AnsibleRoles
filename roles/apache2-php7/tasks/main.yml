@@ -1,0 +1,26 @@
+---
+# apache2-php7 tasks
+
+- name: install packages for Apache 2 with PHP 7
+  tags:
+    - apache
+    - packages
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - libapache2-mod-php
+    - php
+    - php-cli
+    - php-mysql
+  notify:
+    - restart "apache2"
+
+- name: ensure service "apache2" is enabled and started
+  tags:
+    - apache
+    - services
+  service: >
+    enabled=yes
+    name=apache2
+    state=started
