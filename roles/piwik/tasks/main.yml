@@ -83,6 +83,13 @@
     owner=root
     path=/usr/share/piwik/piwik.js
 
+- name: remove README.md.gz, to make self-check happy
+  tags:
+    - piwik
+  file: >
+    state=absent
+    path=/usr/share/doc/piwik/README.md.gz
+
 - name: install Apache VHost configuration for Piwik
   tags:
     - piwik
