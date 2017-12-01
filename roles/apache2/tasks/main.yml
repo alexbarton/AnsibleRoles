@@ -9,7 +9,7 @@
     state=installed
     name={{ item }}
   with_items:
-    - apache2-mpm-prefork
+    - apache2
     - apache2-utils
     - apachetop
   notify:
