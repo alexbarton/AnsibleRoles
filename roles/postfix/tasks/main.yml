@@ -114,7 +114,7 @@
     name=postfix
     question=postfix/protocols
     value="{{ postfix_protocols }}"
-    vtype=string
+    vtype=select
   notify:
     - update "postfix" configuration
 
