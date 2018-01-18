@@ -1,7 +1,7 @@
 ---
 # tasks file for check-mk-agent
 
-- name: install Debian packages for Check_MK agent
+- name: install Debian packages for Check_MK agent (1/2)
   tags:
     - check_mk
     - monitoring
@@ -11,8 +11,17 @@
     name={{ item }}
   with_items:
     - check-mk-agent
-    - check-mk-agent-logwatch
     - nagios-plugins-basic
+
+- name: install Debian packages for Check_MK agent (2/2)
+  tags:
+    - check_mk
+    - monitoring
+    - packages
+  apt: >
+    state=installed
+    name=check-mk-agent-logwatch
+  when: "ansible_distribution_major_version >= '7'"
 
 - name: test for systemd unit files
   tags:
