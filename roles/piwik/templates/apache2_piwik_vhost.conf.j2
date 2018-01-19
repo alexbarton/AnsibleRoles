@@ -14,4 +14,7 @@
 	CustomLog /var/log/apache2/piwik_access.log combined
 	ErrorLog /var/log/apache2/piwik_error.log
 	LogLevel warn
+
+	php_value memory_limit 256M
+	php_value max_execution_time 60
 </VirtualHost>
