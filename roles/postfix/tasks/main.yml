@@ -1,41 +1,6 @@
 ---
 # postfix tasks
 
-# Make sure settings in /etc/postfix/main.cf are the same than for debconf!
-
-- name: set other destinations to accept mail for (main.cf)
-  tags:
-    - mail
-    - postfix
-  lineinfile: >
-    dest=/etc/postfix/main.cf
-    line="mydestination = {{ postfix_destinations }}"
-    regexp="^mydestination"
-  notify:
-    - restart "postfix"
-
-- name: set local networks (main.cf)
-  tags:
-    - mail
-    - postfix
-  lineinfile: >
-    dest=/etc/postfix/main.cf
-    line="mynetworks = {{ postfix_local_networks }}"
-    regexp="^mynetworks"
-  notify:
-    - restart "postfix"
-
-- name: set internet protocols to use (main.cf)
-  tags:
-    - mail
-    - postfix
-  lineinfile: >
-    dest=/etc/postfix/main.cf
-    line="inet_protocols = {{ postfix_protocols }}"
-    regexp="^inet_protocols"
-  notify:
-    - restart "postfix"
-
 # Debconf
 
 - name: 'debconf(1): configure Postfix as "Satellite system"'
@@ -168,6 +133,8 @@
   notify:
     - update "postfix" configuration
 
+# Install Debian package ...
+
 - name: install "postfix" package
   tags:
     - mail
@@ -176,6 +143,8 @@
   apt: >
     state=installed
     name=postfix
+
+# Update configuration files
 
 - name: setup "/etc/mailname"
   tags:
@@ -187,6 +156,41 @@
     mode=0644
     owner=root
     src=mailname.j2
+  notify:
+    - restart "postfix"
+
+# Make sure settings in /etc/postfix/main.cf are the same than for debconf!
+
+- name: set other destinations to accept mail for (main.cf)
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    line="mydestination = {{ postfix_destinations }}"
+    regexp="^mydestination"
+  notify:
+    - restart "postfix"
+
+- name: set local networks (main.cf)
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    line="mynetworks = {{ postfix_local_networks }}"
+    regexp="^mynetworks"
+  notify:
+    - restart "postfix"
+
+- name: set internet protocols to use (main.cf)
+  tags:
+    - mail
+    - postfix
+  lineinfile: >
+    dest=/etc/postfix/main.cf
+    line="inet_protocols = {{ postfix_protocols }}"
+    regexp="^inet_protocols"
   notify:
     - restart "postfix"
 
@@ -214,6 +218,8 @@
     regexp="^inet_interfaces"
   notify:
     - restart "postfix"
+
+# Coinfigure service
 
 - name: ensure service "postfix" is enabled and started
   tags:
