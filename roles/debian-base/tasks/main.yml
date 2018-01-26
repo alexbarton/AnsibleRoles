@@ -35,18 +35,18 @@
     - busybox-static
   when: "ansible_kernel.find('pve') < 1"
 
-- name: install Linux kernel packages (amd64; non Proxmox-VE hosts)
+- name: install Linux kernel packages (amd64; non Proxmox-VE hosts, non OpenVZ guest)
   tags:
     - packages
   apt: >
     state=installed
     name=linux-image-amd64
-  when: "ansible_architecture == 'x86_64' and ansible_kernel.find('pve') < 1"
+  when: "ansible_architecture == 'x86_64' and ansible_kernel.find('pve') < 1 and ansible_virtualization_type != 'openvz'"
 
-- name: install Linux kernel packages (i386; non Proxmox-VE hosts)
+- name: install Linux kernel packages (i386; non Proxmox-VE hosts, non OpenVZ guest)
   tags:
     - packages
   apt: >
     state=installed
     name=linux-image-686-pae
-  when: "ansible_architecture == 'i386' and ansible_kernel.find('pve') < 1"
+  when: "ansible_architecture == 'i386' and ansible_kernel.find('pve') < 1 and ansible_virtualization_type != 'openvz'"
