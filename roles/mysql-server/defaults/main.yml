@@ -2,6 +2,9 @@
 # mysql-server: defaults
 
 mysql_server_vg: ""
+mysql_server_lv_name: "mysql"
+mysql_server_lv_size: "10g"
+
 mysql_server_ansible_user: "ansible"
 mysql_server_ansible_password: "ansible"
 mysql_server_root_host: "localhost"

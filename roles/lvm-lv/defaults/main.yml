@@ -1,0 +1,6 @@
+---
+# lvm-lv defaults
+
+lvm_vg: ""
+lvm_lv_name: ""
+lvm_lv_size: "50g"
