@@ -1,6 +1,18 @@
 ---
 # tasks file for postgresql-server
 
+- name: create LVM LV and file system for PostgreSQL data
+  tags:
+    - postgresql
+    - fs
+  include_role:
+    name: lvm-lv
+  vars:
+    lvm_vg: "{{ postgresql_server_vg }}"
+    lvm_lv_name: "{{ postgresql_server_lv_name }}"
+    lvm_lv_size: "{{ postgresql_server_lv_size }}"
+  when: postgresql_server_vg != ""
+
 - name: install PostgreSQL {{ postgresql_major }} packages for client and server
   tags:
     - packages
