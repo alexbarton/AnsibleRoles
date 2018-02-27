@@ -23,3 +23,13 @@
     name={{ item }}
   with_items:
     - postgresql-{{ postgresql_major }}
+
+- name: ensure service "postgresql" is enabled and started
+  tags:
+    - services
+    - postgres
+    - postgresql
+  service: >
+    enabled=yes
+    name=postgresql
+    state=started
