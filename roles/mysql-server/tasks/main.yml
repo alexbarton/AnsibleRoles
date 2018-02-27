@@ -11,7 +11,8 @@
     lvm_vg: "{{ mysql_server_vg }}"
     lvm_lv_name: "{{ mysql_server_lv_name }}"
     lvm_lv_size: "{{ mysql_server_lv_size }}"
-  when: mysql_server_vg != ""
+    lvm_lv_mountpoint: "/var/lib/mysql"
+  when: mysql_server_vg != "" and mysql_server_lv_name != ""
 
 - name: install MySQL packages for client and server
   tags:

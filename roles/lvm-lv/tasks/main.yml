@@ -23,11 +23,11 @@
     opts="-L {{ lvm_lv_name }}"
     resizefs=yes
 
-- name: create mount point "/var/lib/mysql"
+- name: create mount point "{{ lvm_lv_mountpoint }}"
   tags:
     - fs
   file: >
-    path=/var/lib/mysql
+    path={{ lvm_lv_mountpoint }}
     state=directory
 
 - name: configure and mount MySQL partition "{{ lvm_lv_name }}"
@@ -36,7 +36,7 @@
     - mount
   mount: >
     fstype=ext4
-    name=/var/lib/mysql
+    name={{ lvm_lv_mountpoint }}
     src=/dev/{{ lvm_vg }}/{{ lvm_lv_name }}
     state=mounted
     opts=rw,errors=remount-ro,noatime

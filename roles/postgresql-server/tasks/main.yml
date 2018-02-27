@@ -11,7 +11,8 @@
     lvm_vg: "{{ postgresql_server_vg }}"
     lvm_lv_name: "{{ postgresql_server_lv_name }}"
     lvm_lv_size: "{{ postgresql_server_lv_size }}"
-  when: postgresql_server_vg != ""
+    lvm_lv_mountpoint: "/var/lib/postgresql"
+  when: postgresql_server_vg != "" and postgresql_server_lv_name != ""
 
 - name: install PostgreSQL {{ postgresql_major }} packages for client and server
   tags:
