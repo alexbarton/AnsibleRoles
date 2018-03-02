@@ -1,0 +1,4 @@
+---
+# defaults file for kexec
+
+kexec_use_grub_config: 'true'

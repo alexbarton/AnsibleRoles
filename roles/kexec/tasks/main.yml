@@ -1,0 +1,24 @@
+---
+# tasks file for kexec
+
+- name: install kexec tools
+  tags:
+    - packages
+    - kexec
+  apt: >
+    state=installed
+    name={{ item }}
+  with_items:
+    - kexec-tools
+
+- name: configure kexec tools
+  tags:
+    - kexec
+  lineinfile: >
+    insertafter='^# Load the default kernel from grub'
+    line='USE_GRUB_CONFIG={{ kexec_use_grub_config }}'
+    path=/etc/default/kexec
+    regexp='USE_GRUB_CONFIG='
+
+# kexec service/init files are run on shutdown/reboot/kexec only, so no need
+# to reload/restart any services right now.
