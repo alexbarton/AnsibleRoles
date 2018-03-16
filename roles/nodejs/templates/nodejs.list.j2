@@ -1,0 +1,6 @@
+# /etc/apt/sources.list.d/nodejs.list -- Node.js repository configuration
+# ---
+#  {{ ansible_managed }}
+# ---
+
+deb {{nodejs_apt_repository}} {{ansible_distribution_release}} main

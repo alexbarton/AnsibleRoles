@@ -1,0 +1,53 @@
+---
+# tasks file for nodejs
+
+- name: install "apt-transport-https" and "ca-certificates"
+  tags:
+    - nodejs
+    - packages
+  apt:
+    name: "{{ item }}"
+    state: installed
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+  when: nodejs_apt_repository.startswith("https://")
+
+- name: install Node.js repository GnuPG key
+  tags:
+    - nodejs
+    - packages
+  copy:
+    dest: /etc/apt/trusted.gpg.d/
+    group: root
+    mode: 0644
+    owner: root
+    src: nodejs.gpg
+  notify:
+    - update APT repositories
+
+- name: install Node.js repository configuration
+  tags:
+    - nodejs
+    - packages
+  template:
+    dest: /etc/apt/sources.list.d/nodejs.list
+    group: root
+    mode: 0644
+    owner: root
+    src: nodejs.list.j2
+  notify:
+    - update APT repositories
+
+- meta: flush_handlers
+  tags:
+    - nodejs
+    - packages
+
+- name: install "npm"
+  tags:
+    - nodejs
+    - packages
+  apt:
+    name: npm
+    state: installed
