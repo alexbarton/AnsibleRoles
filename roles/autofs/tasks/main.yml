@@ -27,7 +27,7 @@
     - packages
   apt: >
     name=autofs
-    state=installed
+    state=present
 
 - name: ensure service "autofs" is enabled and started
   tags:

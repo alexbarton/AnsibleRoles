@@ -16,7 +16,7 @@
     - apache
     - packages
   apt: >
-    state=installed
+    state=present
     name={{ item }}
   with_items:
     - libapache2-mod-php5
@@ -31,7 +31,7 @@
     - apache
     - packages
   apt: >
-    state=installed
+    state=present
     name=php5-apcu
   notify:
     - restart "apache2"
@@ -42,7 +42,7 @@
     - apache
     - packages
   apt: >
-    state=installed
+    state=present
     name=php-apc
   notify:
     - restart "apache2"

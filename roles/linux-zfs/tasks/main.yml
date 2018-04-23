@@ -24,7 +24,7 @@
     - packages
     - zfs
   apt: >
-    state=installed
+    state=present
     name=zfsutils
 
 - name: setup /usr/local/sbin/zpool-scrub.sh file

@@ -19,7 +19,7 @@
     - packages
   apt: >
     name=nfs-common
-    state=installed
+    state=present
 
 - name: ensure service "nfs-common" is enabled and started
   tags:

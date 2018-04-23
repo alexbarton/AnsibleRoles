@@ -141,7 +141,7 @@
     - packages
     - postfix
   apt: >
-    state=installed
+    state=present
     name=postfix
 
 # Update configuration files

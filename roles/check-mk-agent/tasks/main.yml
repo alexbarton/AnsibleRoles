@@ -7,7 +7,7 @@
     - monitoring
     - packages
   apt: >
-    state=installed
+    state=present
     name={{ item }}
   with_items:
     - check-mk-agent
@@ -19,7 +19,7 @@
     - monitoring
     - packages
   apt: >
-    state=installed
+    state=present
     name=check-mk-agent-logwatch
   when: "ansible_distribution_major_version >= '7' and ansible_distribution_major_version < '9'"
 

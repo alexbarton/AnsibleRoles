@@ -6,7 +6,7 @@
     - packages
     - kexec
   apt: >
-    state=installed
+    state=present
     name={{ item }}
   with_items:
     - kexec-tools

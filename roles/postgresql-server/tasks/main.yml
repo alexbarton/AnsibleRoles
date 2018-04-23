@@ -19,7 +19,7 @@
     - packages
     - postgresql
   apt: >
-    state=installed
+    state=present
     name={{ item }}
   with_items:
     - postgresql-{{ postgresql_major }}

@@ -7,7 +7,7 @@
     - packages
   apt:
     name: "{{ item }}"
-    state: installed
+    state: present
   with_items:
     - apt-transport-https
     - ca-certificates
@@ -50,4 +50,4 @@
     - packages
   apt:
     name: npm
-    state: installed
+    state: present
