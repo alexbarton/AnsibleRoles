@@ -1,5 +1,5 @@
 ---
 # defaults file for nodejs
 
-nodejs_version: "9"
+nodejs_version: 9
 nodejs_apt_repository: "https://deb.nodesource.com/node_{{nodejs_version}}.x"
