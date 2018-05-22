@@ -4,7 +4,7 @@
 # Setup a new LVM volume, create a new ext4 file system, and add it to
 # /etc/fstab and mount it.
 
-- name: setup LVM volume "{{ lvm_lv_name }}" for MySQL
+- name: setup LVM volume "{{ lvm_lv_name }}"
   tags:
     - partition
     - lvm
@@ -14,7 +14,7 @@
     size={{ lvm_lv_size }}
     vg={{ lvm_vg }}
 
-- name: create/resize ext4 filesystem on MySQL partition "{{ lvm_lv_name }}"
+- name: create/resize ext4 filesystem on partition "{{ lvm_lv_name }}"
   tags:
     - fs
   filesystem: >
@@ -30,7 +30,7 @@
     path={{ lvm_lv_mountpoint }}
     state=directory
 
-- name: configure and mount MySQL partition "{{ lvm_lv_name }}"
+- name: configure and mount partition "{{ lvm_lv_name }}"
   tags:
     - fs
     - mount
