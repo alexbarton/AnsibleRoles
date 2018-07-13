@@ -13,6 +13,7 @@
     - php
     - php-cli
     - php-mysql
+    - php-pgsql
   notify:
     - restart "apache2"
 
