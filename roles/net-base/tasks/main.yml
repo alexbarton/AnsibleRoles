@@ -7,4 +7,4 @@
     - hostname
   hostname: >
     name="{{ inventory_hostname_short }}"
-  when: "ansible_distribution != 'OpenBSD'"
+  when: "ansible_distribution != 'OpenBSD' and ansible_virtualization_type != 'lxc'"
