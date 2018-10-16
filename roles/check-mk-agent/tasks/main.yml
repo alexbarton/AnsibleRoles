@@ -21,7 +21,7 @@
   apt: >
     state=present
     name=check-mk-agent-logwatch
-  when: "ansible_distribution_major_version >= '7' and ansible_distribution_major_version < '9'"
+  when: "ansible_distribution_major_version|int >= 7 and ansible_distribution_major_version < '9'"
 
 - name: test for systemd unit files
   tags:
@@ -29,7 +29,7 @@
     - monitoring
     - packages
   stat: path=/etc/systemd/system/check_mk.socket
-  when: "ansible_distribution_major_version >= '8'"
+  when: "ansible_distribution_major_version|int >= 8"
   check_mode: no
   register: check_mk_socket_unit
 
@@ -44,7 +44,7 @@
     mode=0644
     owner=root
     src=check_mk.socket.j2
-  when: ansible_distribution_major_version >= '8' and check_mk_socket_unit.stat.exists == False
+  when: ansible_distribution_major_version|int >= 8 and check_mk_socket_unit.stat.exists == False
   notify:
     - reload systemd daemon
 
@@ -59,7 +59,7 @@
     mode=0644
     owner=root
     src=check_mk@.service.j2
-  when: ansible_distribution_major_version >= '8' and check_mk_socket_unit.stat.exists == False
+  when: ansible_distribution_major_version|int >= 8 and check_mk_socket_unit.stat.exists == False
   notify:
     - reload systemd daemon
 
@@ -73,7 +73,7 @@
     owner=root
     regexp="^[\s]*disable[\s]*="
     state=absent
-  when: "ansible_distribution_major_version < '8'"
+  when: "ansible_distribution_major_version|int < 8"
   notify:
     - restart "xinetd"
 
@@ -92,4 +92,4 @@
     enabled=yes
     name=check_mk.socket
     state=started
-  when: "ansible_distribution_major_version >= '8'"
+  when: "ansible_distribution_major_version|int >= 8"

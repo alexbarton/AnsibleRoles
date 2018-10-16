@@ -7,4 +7,4 @@
     - systemd
   systemd: >
     daemon_reload=yes
-  when: "ansible_distribution == 'Debian' and ansible_distribution_major_version >= '8'"
+  when: "ansible_distribution == 'Debian' and ansible_distribution_major_version|int >= '8'"
