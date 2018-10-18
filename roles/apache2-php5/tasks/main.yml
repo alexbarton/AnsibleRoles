@@ -15,14 +15,14 @@
   tags:
     - apache
     - packages
-  apt: >
-    state=present
-    name={{ item }}
-  with_items:
-    - libapache2-mod-php5
-    - php5
-    - php5-cli
-    - php5-mysql
+  apt:
+    state: present
+    name: [
+      'libapache2-mod-php5',
+      'php5',
+      'php5-cli',
+      'php5-mysql',
+    ]
   notify:
     - restart "apache2"
 

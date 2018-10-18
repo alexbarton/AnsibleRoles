@@ -17,12 +17,12 @@
   tags:
     - ntpd
     - packages
-  apt: >
-    name={{ item }}
-    state=present
-  with_items:
-    - ntpdate
-    - ntp
+  apt:
+    name: [
+      'ntpdate',
+      'ntp',
+    ]
+    state: present
 
 - name: ensure service "ntp" is enabled and started
   tags:

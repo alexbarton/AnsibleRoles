@@ -6,12 +6,12 @@
     - check_mk
     - monitoring
     - packages
-  apt: >
-    state=present
-    name={{ item }}
-  with_items:
-    - check-mk-agent
-    - nagios-plugins-basic
+  apt:
+    state: present
+    name: [
+      'check-mk-agent',
+      'nagios-plugins-basic',
+    ]
 
 - name: install Debian packages for Check_MK agent (2/2)
   tags:

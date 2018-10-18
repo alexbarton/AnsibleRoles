@@ -19,14 +19,14 @@
     - mysql
     - mysqld
     - packages
-  apt: >
-    state=present
-    name={{ item }}
-  with_items:
-    - mysql-client
-    - mysql-server
-    - mysqltuner
-    - python-mysqldb
+  apt:
+    state: present
+    name: [
+      'mysql-client',
+      'mysql-server',
+      'mysqltuner',
+      'python-mysqldb',
+    ]
 
 - name: ensure service "mysql" is enabled and started
   tags:

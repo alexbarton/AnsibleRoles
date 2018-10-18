@@ -4,35 +4,33 @@
 - name: install common packages
   tags:
     - packages
-  apt: >
-    state=present
-    name={{ item }}
-  with_items:
-    - bash-completion
-    - ca-certificates
-    - curl
-    - debconf-utils
-    - etckeeper
-    - git
-    - htop
-    - less
-    - lsb-base
-    - lsb-release
-    - psmisc
-    - net-tools
-    - screen
-    - sudo
-    - telnet-ssl
-    - vim
+  apt:
+    state: present
+    name: [
+      'bash-completion',
+      'ca-certificates',
+      'curl',
+      'debconf-utils',
+      'etckeeper',
+      'git',
+      'htop',
+      'less',
+      'lsb-base',
+      'lsb-release',
+      'psmisc',
+      'net-tools',
+      'screen',
+      'sudo',
+      'telnet-ssl',
+      'vim',
+    ]
 
 - name: install common packages (non Proxmox-VE hosts)
   tags:
     - packages
   apt: >
     state=present
-    name={{ item }}
-  with_items:
-    - busybox-static
+    name=busybox-static
   when: "ansible_kernel.find('pve') < 1"
 
 - name: install Linux kernel packages (amd64; non Proxmox-VE hosts, non OpenVZ guest)

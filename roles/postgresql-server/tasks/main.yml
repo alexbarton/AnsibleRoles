@@ -20,9 +20,7 @@
     - postgresql
   apt: >
     state=present
-    name={{ item }}
-  with_items:
-    - postgresql-{{ postgresql_major }}
+    name=postgresql-{{ postgresql_major }}
 
 - name: ensure service "postgresql" is enabled and started
   tags:

@@ -4,25 +4,25 @@
 - name: install common packages
   tags:
     - packages
-  apt: >
-    state=present
-    name={{ item }}
-  with_items:
-    - bash-completion
-    - busybox-static
-    - ca-certificates
-    - curl
-    - debconf-utils
-    - etckeeper
-    - git
-    - htop
-    - less
-    - linux-image-generic
-    - lsb-base
-    - lsb-release
-    - psmisc
-    - net-tools
-    - screen
-    - sudo
-    - telnet-ssl
-    - vim
+  apt:
+    state: present
+    name: [
+      'bash-completion',
+      'busybox-static',
+      'ca-certificates',
+      'curl',
+      'debconf-utils',
+      'etckeeper',
+      'git',
+      'htop',
+      'less',
+      'linux-image-generic',
+      'lsb-base',
+      'lsb-release',
+      'psmisc',
+      'net-tools',
+      'screen',
+      'sudo',
+      'telnet-ssl',
+      'vim',
+    ]

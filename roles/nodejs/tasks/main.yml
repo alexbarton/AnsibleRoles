@@ -6,11 +6,11 @@
     - nodejs
     - packages
   apt:
-    name: "{{ item }}"
+    name: [
+      'apt-transport-https',
+      'ca-certificates',
+    ]
     state: present
-  with_items:
-    - apt-transport-https
-    - ca-certificates
   when: nodejs_apt_repository.startswith("https://")
 
 - name: install Node.js repository GnuPG key

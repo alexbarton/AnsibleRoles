@@ -4,12 +4,12 @@
 - name: install "rsync" and "make"
   tags:
     - packages
-  apt: >
-    state=present
-    name={{ item }}
-  with_items:
-    - rsync
-    - make
+  apt:
+    state: present
+    name: [
+      'rsync',
+      'make',
+    ]
 
 - name: clone "backup-script" GIT repository
   tags:

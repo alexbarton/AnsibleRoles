@@ -7,9 +7,7 @@
     - kexec
   apt: >
     state=present
-    name={{ item }}
-  with_items:
-    - kexec-tools
+    name=kexec-tools
 
 - name: configure kexec tools
   tags:
