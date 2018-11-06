@@ -1,0 +1,5 @@
+---
+# autofs defaults
+
+# Mount options for the /net hierarchy (NFS).
+autofs_mount_options_net: "soft"
