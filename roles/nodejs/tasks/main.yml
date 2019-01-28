@@ -44,10 +44,10 @@
     - nodejs
     - packages
 
-- name: install "npm"
+- name: install "nodejs"
   tags:
     - nodejs
     - packages
   apt:
-    name: npm
+    name: nodejs
     state: present
