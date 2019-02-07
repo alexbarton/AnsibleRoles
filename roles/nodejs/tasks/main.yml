@@ -41,11 +41,11 @@
 
 - meta: flush_handlers
   tags:
-    - nodejs
-    - packages
+    - apt
 
 - name: install "nodejs"
   tags:
+    - apt
     - nodejs
     - packages
   apt:

@@ -41,11 +41,11 @@
 
 - meta: flush_handlers
   tags:
-    - piwik
-    - packages
+    - apt
 
 - name: install "piwik"
   tags:
+    - apt
     - piwik
     - packages
   apt: >

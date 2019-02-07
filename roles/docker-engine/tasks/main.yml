@@ -41,11 +41,11 @@
 
 - meta: flush_handlers
   tags:
-    - docker
-    - packages
+    - apt
 
 - name: install "docker-engine"
   tags:
+    - apt
     - docker
     - packages
   apt: >

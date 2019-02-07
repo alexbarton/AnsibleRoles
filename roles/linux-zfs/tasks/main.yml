@@ -16,11 +16,11 @@
 
 - meta: flush_handlers
   tags:
-    - zfs
-    - packages
+    - apt
 
 - name: install ZFS packages
   tags:
+    - apt
     - packages
     - zfs
   apt: >
