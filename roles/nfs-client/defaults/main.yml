@@ -3,4 +3,4 @@
 
 nfs_client_domain: "{{ ansible_domain }}"
 
-rpc_pipefs: "{{ '/var/lib/nfs/rpc_pipefs' if ansible_distribution_major_version < '8' else '/run/rpc_pipefs' }}"
+rpc_pipefs: "{{ '/var/lib/nfs/rpc_pipefs' if ansible_distribution_major_version|int < 8 else '/run/rpc_pipefs' }}"
