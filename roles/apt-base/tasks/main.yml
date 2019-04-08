@@ -43,6 +43,7 @@
     update_cache=yes
     cache_valid_time=3600
   changed_when: false
+  ignore_errors: yes
 
 - name: configure debconf(1) frontend
   tags:
