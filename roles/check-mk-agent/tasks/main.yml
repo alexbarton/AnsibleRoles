@@ -45,7 +45,7 @@
     mode=0644
     owner=root
     src=check_mk.socket.j2
-  when: ansible_distribution_major_version|int >= 8 and check_mk_socket_unit.stat.exists == False
+  when: ansible_distribution_major_version|int >= 8 and not check_mk_socket_unit.stat.exists
   notify:
     - reload systemd daemon
 
@@ -60,7 +60,7 @@
     mode=0644
     owner=root
     src=check_mk@.service.j2
-  when: ansible_distribution_major_version|int >= 8 and check_mk_socket_unit.stat.exists == False
+  when: ansible_distribution_major_version|int >= 8 and check_mk_socket_unit.stat.exists
   notify:
     - reload systemd daemon
 

@@ -5,7 +5,11 @@
   tags:
     - apache
     - packages
-  shell: apt-cache search php5-apcu | grep "^php5-apcu -" >/dev/null
+  shell: |
+    set -o pipefail
+    apt-cache search php5-apcu | grep "^php5-apcu -" >/dev/null
+  args:
+    executable: /bin/bash
   check_mode: no
   register: php5_apcu_is_available
   failed_when: php5_apcu_is_available.rc > 1
