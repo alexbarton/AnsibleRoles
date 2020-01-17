@@ -27,23 +27,13 @@
     state=present
     name=zfsutils
 
-- name: setup /usr/local/sbin/zpool-scrub.sh file
+- name: remove outdated zpool-scrub configuration
   tags:
     - zfs
-  template: >
-    dest=/usr/local/sbin/zpool-scrub.sh
-    group=root
-    mode=0755
-    owner=root
-    src=zpool-scrub.sh.j2
-
-- name: setup /etc/cton.d/zpool-scrub file
-  tags:
     - cron
-    - zfs
-  template: >
-    dest=/etc/cron.d/zpool-scrub
-    group=root
-    mode=0644
-    owner=root
-    src=cron.d_zpool-scrub.j2
+  file:
+    state: absent
+    path: "{{ item }}"
+  with_items:
+    - /usr/local/sbin/zpool-scrub.sh
+    - /etc/cron.d/zpool-scrub
