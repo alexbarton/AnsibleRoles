@@ -21,9 +21,28 @@
       'net-tools',
       'screen',
       'sudo',
-      'telnet-ssl',
       'vim',
     ]
+
+- name: install common packages for Debian <10
+  tags:
+    - packages
+  apt:
+    state: present
+    name: [
+      'telnet-ssl',
+    ]
+  when: "ansible_distribution_major_version|int < 10"
+
+- name: install common packages for Debian >= 10
+  tags:
+    - packages
+  apt:
+    state: present
+    name: [
+      'telnet',
+    ]
+  when: "ansible_distribution_major_version|int >= 10"
 
 - name: install common packages (non Proxmox-VE hosts)
   tags:
