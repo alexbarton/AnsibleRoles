@@ -75,7 +75,7 @@ directory hierarchy.
 
  - check-mk-agent
  - check-mk-agent-logwatch
- - nagios-plugins-basic
+ - monitoring-plugins-basic
 
 
 ### debian-base

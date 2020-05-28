@@ -10,7 +10,7 @@
     state: present
     name: [
       'check-mk-agent',
-      'nagios-plugins-basic',
+      'monitoring-plugins-basic',
     ]
 
 - name: install Debian packages for Check_MK agent (2/2)
