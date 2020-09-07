@@ -22,6 +22,7 @@
     dest=/etc/apt/apt.conf
     group=root
     line='Apt::Install-Recommends "false";'
+    mode=0644
     owner=root
 
 - name: "aptitude(8): Don't install recommended packages by default"
@@ -33,6 +34,7 @@
     dest=/root/.aptitude/config
     group=root
     line='Apt::Install-Recommends "false";'
+    mode=0644
     owner=root
 
 - name: update APT repositories (when outdated)

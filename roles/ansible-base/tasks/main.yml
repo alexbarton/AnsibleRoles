@@ -5,7 +5,9 @@
   tags:
     - logcheck
   file: >
+    group=root
     mode=0755
+    owner=root
     path=/etc/logcheck/ignore.d.paranoid
     state=directory
 
