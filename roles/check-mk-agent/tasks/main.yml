@@ -1,7 +1,7 @@
 ---
 # tasks file for check-mk-agent
 
-- name: install Debian packages for Check_MK agent (1/2)
+- name: install Debian packages for Check_MK agent
   tags:
     - check_mk
     - monitoring
@@ -12,16 +12,6 @@
       'check-mk-agent',
       'monitoring-plugins-basic',
     ]
-
-- name: install Debian packages for Check_MK agent (2/2)
-  tags:
-    - check_mk
-    - monitoring
-    - packages
-  apt: >
-    state=present
-    name=check-mk-agent-logwatch
-  when: "ansible_distribution_major_version|int >= 7 and ansible_distribution_major_version|int < 9"
 
 - name: enable xinetd configuration
   tags:
