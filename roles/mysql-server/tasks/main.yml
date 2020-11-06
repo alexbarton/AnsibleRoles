@@ -25,7 +25,7 @@
       'mysql-client',
       'mysql-server',
       'mysqltuner',
-      'python-mysqldb',
+      'python3-pymysql',
     ]
 
 - name: ensure service "mysql" is enabled and started
