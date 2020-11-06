@@ -46,6 +46,7 @@
   mysql_user: >
     login_user={{ mysql_server_ansible_user }}
     login_password={{ mysql_server_ansible_password }}
+    login_unix_socket="/var/run/mysqld/mysqld.sock"
     check_implicit_admin=yes
     host="localhost"
     name=ansible
