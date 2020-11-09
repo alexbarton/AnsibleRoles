@@ -2,15 +2,11 @@
 # handlers file for postgresql-server
 
 - name: reload PostgreSQL daemon
-  tags:
-    - postgresql
   service: >
     name=postgresql
     state=reloaded
 
 - name: restart PostgreSQL daemon
-  tags:
-    - postgresql
   service: >
     name=postgresql
     state=restarted

@@ -2,8 +2,6 @@
 # sshd handlers
 
 - name: restart "sshd"
-  tags:
-    - ssh
   command: echo "SSH service should be restarted ..."
   changed_when: True
   notify:
@@ -11,16 +9,12 @@
     - restart SSH daemon (service "sshd")
 
 - name: restart SSH daemon (service "ssh")
-  tags:
-    - ssh
   service: >
     name=ssh
     state=restarted
   when: "ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'"
 
 - name: restart SSH daemon (service "sshd")
-  tags:
-    - ssh
   service: >
     name=sshd
     state=restarted

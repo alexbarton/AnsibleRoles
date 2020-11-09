@@ -2,10 +2,6 @@
 # git-backup-script handlers
 
 - name: install "backup-script"
-  tags:
-    - git
-    - source
-    - backup
   command: make install
   args:
     chdir: /usr/local/src/backup-script

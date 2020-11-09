@@ -2,8 +2,5 @@
 # handlers file for debian-base
 
 - name: "update APT repositories"
-  tags:
-    - apt
-    - packages
   apt: >
     update_cache=yes

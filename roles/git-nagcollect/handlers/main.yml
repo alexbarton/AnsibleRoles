@@ -2,10 +2,6 @@
 # git-nagcollect handlers
 
 - name: install "NagCollect" client
-  tags:
-    - git
-    - source
-    - monitoring
   shell: make install-client
   args:
     chdir: /usr/local/src/NagCollect

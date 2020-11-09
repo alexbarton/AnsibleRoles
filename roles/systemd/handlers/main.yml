@@ -2,6 +2,4 @@
 # systemd handlers
 
 - name: refresh systemd(8) configuration
-  tags:
-    - systemd
   command: systemctl daemon-reload
