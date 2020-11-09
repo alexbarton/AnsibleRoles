@@ -28,8 +28,6 @@
     - restart "xinetd"
 
 - meta: flush_handlers
-  tags:
-    - check_mk
 
 - name: ensure "check_mk.socket" is enabled and started
   tags:

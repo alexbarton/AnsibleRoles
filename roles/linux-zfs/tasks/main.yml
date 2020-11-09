@@ -15,8 +15,6 @@
     - update APT repositories
 
 - meta: flush_handlers
-  tags:
-    - apt
 
 - name: install ZFS packages
   tags:
