@@ -1,0 +1,6 @@
+# /etc/apt/sources.list.d/microsoft.list
+# ---
+#  {{ ansible_managed }}
+# ---
+
+deb [arch=amd64] {{ microsoft_apt_repository }} {{ ansible_distribution_release }} main

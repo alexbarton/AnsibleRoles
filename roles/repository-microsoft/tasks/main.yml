@@ -1,0 +1,28 @@
+---
+# tasks file for repository-microsoft
+
+- name: install Microsoft repository GnuPG key
+  tags:
+    - apt
+    - apt-key
+    - microsoft
+    - packages
+  apt_key:
+    data: "{{ lookup('file', 'microsoft.gpg') }}"
+    state: present
+  notify:
+    - update APT repositories
+
+- name: install Microsoft repository configuration
+  tags:
+    - apt
+    - microsoft
+    - packages
+  template:
+    dest: /etc/apt/sources.list.d/microsoft.list
+    group: root
+    mode: 0644
+    owner: root
+    src: microsoft.list.j2
+  notify:
+    - update APT repositories

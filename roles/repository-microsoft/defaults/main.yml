@@ -1,0 +1,4 @@
+---
+# defaults file for repository-microsoft
+
+microsoft_apt_repository: "https://packages.microsoft.com/repos/microsoft-debian-{{ ansible_distribution_release }}-prod"
