@@ -2,4 +2,10 @@
 # systemd handlers
 
 - name: refresh systemd(8) configuration
-  command: systemctl daemon-reload
+  systemd:
+    daemon_reload: yes
+
+- name: restart systemd-journald(8) daemon
+  systemd:
+    name: systemd-journald.service
+    state: restarted
