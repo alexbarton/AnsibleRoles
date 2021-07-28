@@ -6,7 +6,7 @@
 
 - name: setup LVM volume "{{ lvm_lv_name }}"
   tags:
-    - partition
+    - partitions
     - lvm
     - fs
   lvol: >
