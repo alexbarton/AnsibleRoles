@@ -12,6 +12,7 @@
     src=idmapd.conf.j2
   notify:
     - restart "nfs-common"
+    - restart "nfs-utils"
 
 - name: install "nfs-common"
   tags:

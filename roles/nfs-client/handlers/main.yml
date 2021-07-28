@@ -2,6 +2,13 @@
 # nfs-client handlers
 
 - name: restart "nfs-common"
-  service: >
-    name=nfs-common
-    state=restarted
+  service:
+    name: nfs-common
+    state: restarted
+  when: "ansible_distribution_major_version|int < 9"
+
+- name: restart "nfs-utils"
+  service:
+    name: nfs-utils.service
+    state: restarted
+  when: "ansible_distribution_major_version|int >= 9"
