@@ -13,3 +13,4 @@
 
 - name: reload "apache2" (graceful)
   command: apache2ctl graceful
+  listen: SSL certificates updated
