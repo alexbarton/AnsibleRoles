@@ -1,21 +1,6 @@
 ---
 # tasks file for linux-zfs
 
-- name: remove outdated "ZFS on Linux" repository configuration
-  tags:
-    - zfs
-    - packages
-  file: >
-    name={{ item }}
-    state=absent
-  with_items:
-    - /etc/apt/trusted.gpg.d/zfsonlinux.gpg
-    - /etc/apt/sources.list.d/zfsonlinux.list
-  notify:
-    - update APT repositories
-
-- meta: flush_handlers
-
 - name: install ZFS packages
   tags:
     - apt
@@ -24,14 +9,3 @@
   apt: >
     state=present
     name=zfsutils
-
-- name: remove outdated zpool-scrub configuration
-  tags:
-    - zfs
-    - cron
-  file:
-    state: absent
-    path: "{{ item }}"
-  with_items:
-    - /usr/local/sbin/zpool-scrub.sh
-    - /etc/cron.d/zpool-scrub
