@@ -1,0 +1,19 @@
+---
+# ansible-lint configuration
+
+skip_list:
+  - experimental  # all rules tagged as experimental
+  - fqcn[action-core]  # Use FQCN for builtin actions.
+  - fqcn[action]  # Use FQCN for builtin actions.
+  - name[casing]  # Rule for checking task and play names.
+  - role-name  # Role name {0} does not match ``^[a-z][a-z0-9_]*$`` pattern.
+
+warn_list:
+  - command-instead-of-shell  # Use shell only when shell functionality is required.
+  - deprecated-bare-vars  # Using bare variables is deprecated.
+  - jinja[spacing]  # Rule that looks inside jinja2 templates.
+  - latest[git]  # Result of the command may vary on subsequent runs.
+  - meta-no-info  # meta/main.yml should contain relevant info.
+  - name[missing]  # Rule for checking task and play names.
+  - name[template]  # Rule for checking task and play names.
+  - yaml[truthy]  # Violations reported by yamllint.
