@@ -22,8 +22,8 @@
   apt:
     state: present
     name: [
-      'mysql-client',
-      'mysql-server',
+      'default-mysql-client',
+      'default-mysql-server',
       'mysqltuner',
       'python3-pymysql',
     ]
